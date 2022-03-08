@@ -1,0 +1,72 @@
+.myWrapper{
+    display: flex;
+}
+
+.imgBloc{
+    width: 50vw;
+    height: 100vh;
+    overflow: hidden;
+    background: url(../../../../assets/images/img_connexion.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.blockForm{
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 4em;
+    padding-bottom: 4em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.jhead{
+    display: flex;
+    flex-direction: column;
+}
+
+.myTitle{
+    font-size: 64px;
+}
+
+.myTitleAside{
+    font-size: 24px;
+}
+
+.myfield{
+    display: flex;
+    flex-direction: column;
+}
+
+.mylabel{
+    font-size: 18px;
+}
+
+.mytextfield{
+    border-radius: 25px 25px 25px 25px;
+    border: 0;
+    height: 3em;
+    padding-left: 1em;
+    background-color: var(--ion-color-primary-contrast);
+
+}
+
+.jbottom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btnValidate{
+    background-color: var(--ion-color-warning);
+    height: 4em;
+    width: 10em;
+    border-radius: 30px 30px 30px 30px;
+
+}
+
+.underValidate{
+    font-size: 18px;
+}
