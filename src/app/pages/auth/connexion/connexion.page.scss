@@ -18,8 +18,10 @@
     justify-content: space-between;
     padding-top: 4em;
     padding-bottom: 4em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 7vw;
+    padding-right: 7vw;
+    min-height: 520px;
+
 }
 
 .jhead{
@@ -28,29 +30,41 @@
 }
 
 .myTitle{
-    font-size: 64px;
+    font-size: 2.5em;
 }
 
 .myTitleAside{
-    font-size: 24px;
+    font-size: 0.75em;
+    margin-left: 0.3em;
+    color: var(--ion-color-dark-shade);
+}
+
+.jmiddle{
+    // padding-left: 8em;
+    // padding-right: 8em;
 }
 
 .myfield{
     display: flex;
     flex-direction: column;
+    margin-bottom: 2em;
 }
 
 .mylabel{
-    font-size: 18px;
+    font-family: 'Circular_Medium';
+    font-size: 0.75em;
+    color: var(--ion-color-dark-shade);
+    margin-bottom: 0.5em;
 }
 
 .mytextfield{
     border-radius: 25px 25px 25px 25px;
     border: 0;
-    height: 3em;
-    padding-left: 1em;
+    height: 2.5em;
+    padding-left: 2em;
     background-color: var(--ion-color-primary-contrast);
-
+    color: var(--ion-color-dark-tint);
+    font-size: 1em;
 }
 
 .jbottom{
@@ -61,12 +75,65 @@
 
 .btnValidate{
     background-color: var(--ion-color-warning);
-    height: 4em;
-    width: 10em;
+    height: 3.5em;
+    width: 13em;
     border-radius: 30px 30px 30px 30px;
-
+    margin-bottom: 1em;
 }
 
 .underValidate{
-    font-size: 18px;
+    font-size: 0.5em;
+    color: var(--ion-color-dark-shade);
+}
+
+.greelink{
+    text-decoration: underline;
+}
+
+
+
+/** Scrolbar **/
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #fff; 
+    border-radius:25px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius:25px;
+  }
+  
+  ::-webkit-scrollbar-track:hover {
+    background: #f1f1f1; 
+    border-radius:25px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+/** /Scrolbar **/
+
+@media only screen and (max-width: 600px) {
+    .imgBloc{
+        display: none;
+    }
+    
+    .blockForm{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-top: 4em;
+        padding-bottom: 4em;
+        padding-left: 7vw;
+        padding-right: 7vw;
+    }
 }

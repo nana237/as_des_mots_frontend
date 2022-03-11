@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'inscription',
     loadChildren: () => import('./pages/auth/inscription/inscription.module').then( m => m.InscriptionPageModule)
   },
+  {
+    path: 'accueil',
+    loadChildren: () => import('./pages/partie/accueil/accueil.module').then( m => m.AccueilPageModule)
+  },
 ];
 
 @NgModule({
