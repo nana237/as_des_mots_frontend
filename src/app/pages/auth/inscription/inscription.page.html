@@ -48,29 +48,46 @@
 
 
         <!-- ============================================================================= -->
-        <div class="myfield">
-          <label for="email" class="mylabel">Votre adresse email</label>
-          <input id="email" type="text" class="mytextfield" placeholder="Email">
-        </div>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
 
-        <div class="myfield">
-          <label for="login" class="mylabel">Votre nom d’utilisateur</label>
-          <input id="login" type="text" class="mytextfield" placeholder="Login">
-        </div>
-        <div class="myfield">
-          <label for="password1" class="mylabel">Votre mot de pass</label>
-          <input id="password1" type="password" class="mytextfield" placeholder="Mot de pass">
-        </div>
 
-        <div class="myfield">
-          <label for="password2" class="mylabel">Confirmation du mot de pass</label>
-          <input id="password2" type="password" class="mytextfield" placeholder="Confirmation du mot de pass">
+          <div class="myfield">
+            <span *ngIf="true" class="noticeinvalid">ce nom d'utilisateur existe déjà</span>
+            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <label for="username" class="mylabel">Votre nom d’utilisateur</label>
+            <input id="username" type="text" formControlName="username" class="mytextfield" placeholder="Nom d'utilisateur">
+          </div>
+
+          <div class="myfield">
+            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="true" class="noticeinvalid">Veuillez entrer une adresse email valide</span>
+            <label for="email" class="mylabel">Votre adresse email</label>
+            <input id="email" type="text" formControlName="email" class="mytextfield" placeholder="Email">
+          </div>
+
+          <div class="myfield">
+            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="true" class="noticeinvalid">Les mots de passe ne coinsident pas</span>
+            <span *ngIf="true" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
+            <label for="password1" class="mylabel">Votre mot de pass</label>
+            <input id="password1" type="password" formControlName="password1" class="mytextfield" placeholder="Mot de pass">
+          </div>
+
+          <div class="myfield">
+            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="true" class="noticeinvalid">Les mots de passe ne coinsident pas</span>
+            <span *ngIf="true" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
+            <label for="password2" class="mylabel"><span class="redStar">*</span> Confirmation du mot de pass</label>
+            <input id="password2" type="password" formControlName="password2" class="mytextfield" placeholder="Confirmation du mot de pass">
+          </div>
+          
+          <div class="jbottom">
+            <Button type="submit" class="btnValidate">Se Connecter</Button>
+            <span class="underValidate">Pas de compte ? <span class="greelink">Inscrivez vous</span></span>
+          </div>
+        </form>
         </div>
-      </div>
-      <div class="jbottom">
-        <Button class="btnValidate">Se Connecter</Button>
-        <span class="underValidate">Pas de compte ? <span class="greelink">Inscrivez vous</span></span>
-      </div>
+      
     </div>
   </div>
   <app-footer></app-footer>

@@ -59,6 +59,7 @@
   font-size: 0.75em;
   color: var(--ion-color-dark-shade);
   margin-bottom: 0.5em;
+  margin-top: 1em;
 }
 
 .mytextfield{
@@ -103,6 +104,28 @@
 
 .greelink{
   text-decoration: underline;
+}
+
+.noticeinvalid{
+  color: var(--ion-color-danger);
+  font-family: 'Roboto_light';
+  font-size: 0.7em;
+  width: 100%;
+  text-align: left;
+  // padding-left: 2em;
+  // margin-top: 1em;
+  // margin-bottom: 1em;
+}
+
+.redStar{
+  color: var(--ion-color-danger);
+  font-family: 'Roboto_light';
+  font-size: 1em;
+  width: 100%;
+  text-align: left;
+  // padding-left: 2em;
+  // margin-top: 1em;
+  // margin-bottom: 1em;
 }
 
 
