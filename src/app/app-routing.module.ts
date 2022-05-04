@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'accueil',
     loadChildren: () => import('./pages/partie/accueil/accueil.module').then( m => m.AccueilPageModule)
+  },  {
+    path: 'footer',
+    loadChildren: () => import('./pages/pl-part/footer/footer.module').then( m => m.FooterPageModule)
   },
+
 ];
 
 @NgModule({

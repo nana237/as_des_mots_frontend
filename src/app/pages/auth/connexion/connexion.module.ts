@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ConnexionPageRoutingModule } from './connexion-routing.module';
 
 import { ConnexionPage } from './connexion.page';
+import { FooterComponent } from '../../../components/pl-part/footer/footer.component'
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ConnexionPage } from './connexion.page';
     IonicModule,
     ConnexionPageRoutingModule
   ],
-  declarations: [ConnexionPage]
+  declarations: [ConnexionPage, FooterComponent]
 })
 export class ConnexionPageModule {}

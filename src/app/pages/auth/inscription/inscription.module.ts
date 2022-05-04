@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InscriptionPageRoutingModule } from './inscription-routing.module';
 
 import { InscriptionPage } from './inscription.page';
+import { FooterComponent } from '../../../components/pl-part/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { InscriptionPage } from './inscription.page';
     IonicModule,
     InscriptionPageRoutingModule
   ],
-  declarations: [InscriptionPage]
+  declarations: [InscriptionPage, FooterComponent]
 })
 export class InscriptionPageModule {}
