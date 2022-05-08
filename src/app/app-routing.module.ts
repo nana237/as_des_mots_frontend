@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'footer',
     loadChildren: () => import('./pages/pl-part/footer/footer.module').then( m => m.FooterPageModule)
   },
+  {
+    path: 'complete-info',
+    loadChildren: () => import('./pages/auth/complete-info/complete-info.module').then( m => m.CompleteInfoPageModule)
+  },
 
 ];
 

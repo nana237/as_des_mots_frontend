@@ -6,11 +6,11 @@
     <div class="blockForm">
       <div class="jhead">
         <span class="myTitle">Inscription</span>
-        <span class="myTitleAside">Connectez vous si vous êtes déjà inscrit</span>
+        <span class="myTitleAside">Inscrivez vous si vous n'avez pas de compte</span>
       </div>
       <div class="jmiddle">
-
-        <div class="myfield">
+        <br>
+        <!-- <div class="myfield">
           <label for="name" class="mylabel">Votre nom </label>
           <input id="name" type="text" class="mytextfield" placeholder="Nom">
         </div>
@@ -44,7 +44,7 @@
             <option value="null">Ville</option>
             <option value="#">#</option>
           </select>
-        </div>
+        </div> -->
 
 
         <!-- ============================================================================= -->
@@ -52,42 +52,42 @@
 
 
           <div class="myfield">
-            <span *ngIf="true" class="noticeinvalid">ce nom d'utilisateur existe déjà</span>
-            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="false" class="noticeinvalid">ce nom d'utilisateur existe déjà</span>
+            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
             <label for="username" class="mylabel">Votre nom d’utilisateur</label>
             <input id="username" type="text" formControlName="username" class="mytextfield" placeholder="Nom d'utilisateur">
           </div>
 
           <div class="myfield">
-            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
-            <span *ngIf="true" class="noticeinvalid">Veuillez entrer une adresse email valide</span>
+            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="false" class="noticeinvalid">Veuillez entrer une adresse email valide</span>
             <label for="email" class="mylabel">Votre adresse email</label>
             <input id="email" type="text" formControlName="email" class="mytextfield" placeholder="Email">
           </div>
 
           <div class="myfield">
-            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
-            <span *ngIf="true" class="noticeinvalid">Les mots de passe ne coinsident pas</span>
-            <span *ngIf="true" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
+            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="false" class="noticeinvalid">Les mots de passe ne coinsident pas</span>
+            <span *ngIf="false" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
             <label for="password1" class="mylabel">Votre mot de pass</label>
             <input id="password1" type="password" formControlName="password1" class="mytextfield" placeholder="Mot de pass">
           </div>
 
           <div class="myfield">
-            <span *ngIf="true" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
-            <span *ngIf="true" class="noticeinvalid">Les mots de passe ne coinsident pas</span>
-            <span *ngIf="true" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
+            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="false" class="noticeinvalid">Les mots de passe ne coinsident pas</span>
+            <span *ngIf="false" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
             <label for="password2" class="mylabel"><span class="redStar">*</span> Confirmation du mot de pass</label>
             <input id="password2" type="password" formControlName="password2" class="mytextfield" placeholder="Confirmation du mot de pass">
           </div>
-          
+
           <div class="jbottom">
             <Button type="submit" class="btnValidate">Se Connecter</Button>
-            <span class="underValidate">Pas de compte ? <span class="greelink">Inscrivez vous</span></span>
+            <span class="underValidate">Pas de compte ? <span class="greelink" [routerLink]="['/connexion']">Inscrivez vous</span></span>
           </div>
         </form>
         </div>
-      
+
     </div>
   </div>
   <app-footer></app-footer>

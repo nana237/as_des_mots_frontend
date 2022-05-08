@@ -3,26 +3,27 @@
     <div class="imgBloc">
       <!-- <img src="assets/images/img_inscription.jpg" alt=""> -->
     </div>
-    <div class="blockForm">
+    <form class="blockForm" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
       <div class="jhead">
         <span class="myTitle">Connexion</span>
         <span class="myTitleAside">Connectez vous si vous êtes déjà inscrit</span>
       </div>
       <div class="jmiddle">
+
         <div class="myfield">
-          <label for="login" class="mylabel">Votre nom d’utilisateur</label>
-          <input id="login" type="text" class="mytextfield" placeholder="Login">
+          <label for="username" class="mylabel">Votre nom d’utilisateur</label>
+          <input id="username" type="text" class="mytextfield" formControlName="username"  placeholder="Nom d'utilisateur">
         </div>
         <div class="myfield">
           <label for="password" class="mylabel">Votre mot de pass</label>
-          <input id="password" type="password" class="mytextfield" placeholder="Mot de pass">
+          <input id="password" type="password" formControlName="password" class="mytextfield" placeholder="Mot de pass">
         </div>
       </div>
       <div class="jbottom">
-        <Button class="btnValidate">Se Connecter</Button>
-        <span class="underValidate">Pas de compte ? <span class="greelink">Inscrivez vous</span></span>
+        <Button type="submit" class="btnValidate">Se Connecter</Button>
+        <span class="underValidate">Pas de compte ? <span class="greelink"  [routerLink]="['/inscription']">Inscrivez vous</span></span>
       </div>
-    </div>
+    </form>
   </div>
   <app-footer></app-footer>
   </ion-content>

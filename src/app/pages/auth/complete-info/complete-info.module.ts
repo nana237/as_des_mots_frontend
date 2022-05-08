@@ -4,19 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ConnexionPageRoutingModule } from './connexion-routing.module';
+import { CompleteInfoPageRoutingModule } from './complete-info-routing.module';
 
-import { ConnexionPage } from './connexion.page';
-import { FooterComponent } from '../../../components/pl-part/footer/footer.component'
+import { CompleteInfoPage } from './complete-info.page';
+import { FooterComponent } from '../../../components/pl-part/footer/footer.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConnexionPageRoutingModule,
+    CompleteInfoPageRoutingModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
-  declarations: [ConnexionPage, FooterComponent]
+  declarations: [CompleteInfoPage, FooterComponent]
 })
-export class ConnexionPageModule {}
+export class CompleteInfoPageModule {}
