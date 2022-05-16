@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InscriptionPageRoutingModule } from './inscription-routing.module';
 
 import { InscriptionPage } from './inscription.page';
-import { FooterComponent } from '../../../components/pl-part/footer/footer.component';
+import { FooterModule } from '../../../components/pl-part/footer/footer.module';
 
 
 @NgModule({
@@ -16,8 +16,9 @@ import { FooterComponent } from '../../../components/pl-part/footer/footer.compo
     FormsModule,
     IonicModule,
     InscriptionPageRoutingModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    FooterModule
   ],
-  declarations: [InscriptionPage, FooterComponent]
+  declarations: [InscriptionPage]
 })
 export class InscriptionPageModule {}

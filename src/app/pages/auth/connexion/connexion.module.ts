@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ConnexionPageRoutingModule } from './connexion-routing.module';
 
 import { ConnexionPage } from './connexion.page';
-import { FooterComponent } from '../../../components/pl-part/footer/footer.component'
+import { FooterModule } from '../../../components/pl-part/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,8 +15,9 @@ import { FooterComponent } from '../../../components/pl-part/footer/footer.compo
     FormsModule,
     IonicModule,
     ConnexionPageRoutingModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    FooterModule
   ],
-  declarations: [ConnexionPage, FooterComponent]
+  declarations: [ConnexionPage]
 })
 export class ConnexionPageModule {}

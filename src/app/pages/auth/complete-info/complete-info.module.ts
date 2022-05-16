@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CompleteInfoPageRoutingModule } from './complete-info-routing.module';
 
 import { CompleteInfoPage } from './complete-info.page';
-import { FooterComponent } from '../../../components/pl-part/footer/footer.component';
+import { FooterModule } from '../../../components/pl-part/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -15,8 +15,9 @@ import { FooterComponent } from '../../../components/pl-part/footer/footer.compo
     FormsModule,
     IonicModule,
     CompleteInfoPageRoutingModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    FooterModule
   ],
-  declarations: [CompleteInfoPage, FooterComponent]
+  declarations: [CompleteInfoPage]
 })
 export class CompleteInfoPageModule {}
