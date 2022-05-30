@@ -17,6 +17,7 @@ export class InscriptionPage implements OnInit {
   usernameAlreadyExist;
   usernameEmpty;
   emailEmpty;
+  emailAlreadyExist;
   emailInvalid;
   passwordEmpty;
   passwordAndConfirmDiferent;
@@ -47,34 +48,28 @@ export class InscriptionPage implements OnInit {
   }
 
   validateForm(){
-    // let valid = false;
-    // console.log('validate');
-    // if (this.userForm.valid) {
-    //   // this.usernameAlreadyExist;
-    //   // this.usernameEmpty= this.userForm.get('username').invalid ? true:false;
-    //   // this.emailEmpty;
-    //   // this.emailInvalid;
-    //   // this.passwordEmpty;
-    //   // this.passwordAndConfirmDiferent;
-    //   // this.passwordWeak;
-    //   // this.confirmEmpty;
+    let valid = false;
+    console.log('validate');
+    if (this.userForm.invalid) {
+      // this.usernameAlreadyExist;
+      //- this.usernameEmpty= this.userForm.get('username').invalid ? true:false;
+      //- this.emailEmpty;
+      // emailAlreadyExist;
+      //- this.emailInvalid;
+      //- this.passwordEmpty;
+      //- this.passwordAndConfirmDiferent;
+      // this.passwordWeak;
+      //- this.confirmEmpty;
 
-    //   if (this.userForm.get('username').value == '') {
-    //     this.usernameEmpty=true;
-    //   }
-    //   if (this.userForm.get('email').value=='') {
-    //     this.emailEmpty=true;
-    //   }
-    //   if (this.userForm.get('password1').value==''){
-    //     this.passwordEmpty=true;
-    //   }
-    //   if (this.userForm.get('password2').value==''){
-    //     this.confirmEmpty=true;
-    //   }
+      if (this.userForm.get('username').value == '') { this.usernameEmpty=true; } else { this.usernameEmpty=false }
+      if (this.userForm.get('email').value=='') {  this.emailEmpty=true;  } else { this.emailEmpty=false }
+      if (this.userForm.get('email').invalid && !this.emailEmpty) {  this.emailInvalid=true;  } else { this.emailInvalid=false }
+      if (this.userForm.get('password1').value==''){  this.passwordEmpty=true;  } else { this.passwordEmpty=false }
+      if (this.userForm.get('password2').value==''){   this.confirmEmpty=true; } else { this.confirmEmpty=false }
+      if (!this.passwordEmpty && !this.confirmEmpty){   this.passwordAndConfirmDiferent=true; } else { this.passwordAndConfirmDiferent=false }
 
-    //   return true
-    // }
-    // return false
+      return false;
+    }
     return true;
   }
 
