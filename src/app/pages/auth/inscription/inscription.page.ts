@@ -16,12 +16,16 @@ export class InscriptionPage implements OnInit {
   
   usernameAlreadyExist;
   usernameEmpty;
+  otherusernameError;
   emailEmpty;
   emailAlreadyExist;
   emailInvalid;
+  otherEmailError;
   passwordEmpty;
   passwordAndConfirmDiferent;
   passwordWeak;
+  passwordToCommun;
+  otherPasswordError;
   confirmEmpty;
 
   constructor(
@@ -58,15 +62,16 @@ export class InscriptionPage implements OnInit {
       //- this.emailInvalid;
       //- this.passwordEmpty;
       //- this.passwordAndConfirmDiferent;
-      // this.passwordWeak;
+      //- this.passwordWeak;
+      // passwordToCommun;
       //- this.confirmEmpty;
 
       if (this.userForm.get('username').value == '') { this.usernameEmpty=true; } else { this.usernameEmpty=false }
       if (this.userForm.get('email').value=='') {  this.emailEmpty=true;  } else { this.emailEmpty=false }
       if (this.userForm.get('email').invalid && !this.emailEmpty) {  this.emailInvalid=true;  } else { this.emailInvalid=false }
       if (this.userForm.get('password1').value==''){  this.passwordEmpty=true;  } else { this.passwordEmpty=false }
-      if (this.userForm.get('password2').value==''){   this.confirmEmpty=true; } else { this.confirmEmpty=false }
-      if (!this.passwordEmpty && !this.confirmEmpty){   this.passwordAndConfirmDiferent=true; } else { this.passwordAndConfirmDiferent=false }
+      if (this.userForm.get('password2').value==''){this.confirmEmpty=true; } else { this.confirmEmpty=false }
+      if (!this.passwordEmpty && !this.confirmEmpty && this.userForm.get('password1').value!=this.userForm.get('password2').value){   this.passwordAndConfirmDiferent=true; } else { this.passwordAndConfirmDiferent=false }
 
       return false;
     }
@@ -103,7 +108,83 @@ export class InscriptionPage implements OnInit {
             this.router.navigateByUrl('complete-info');
           }
         },
-        error=>{console.warn(error)},
+        error=>{
+          console.warn(error);
+          if(error.error.password1.length>0){
+            let causeErrorFound=false;
+            if(error.error.password1[0]=='This password is too short. It must contain at least 8 characters.')
+            {
+              this.passwordWeak=true;
+              causeErrorFound=true;
+            }else{
+              this.passwordWeak=false;
+            }
+            if(error.error.password1[0]=='This password is too common.'){
+              this.passwordToCommun=true;
+              causeErrorFound=true;
+            }else{
+              this.passwordToCommun=false;
+            }
+
+            if(!causeErrorFound){
+              this.otherPasswordError=true;
+            }else{
+              this.otherPasswordError=false;
+            }
+          }else{
+            this.passwordWeak=false;
+            this.passwordToCommun=false;
+            this.otherPasswordError=false;
+          }
+
+          if (error.error.username.length>0) {
+            let causeErrorFound=false;
+            if(error.error.username[0]=='A user with that username already exists.')
+            {
+              this.usernameAlreadyExist=true;
+              causeErrorFound=true;
+            }else{
+              this.usernameAlreadyExist=false;
+            }
+
+
+            if(!causeErrorFound){
+              this.otherusernameError=true;
+            }else{
+              this.otherusernameError=false;
+            }
+          }else{
+            this.usernameAlreadyExist=false;
+            this.otherusernameError=false;
+          }
+
+          if (error.error.email.length>0) {
+            let causeErrorFound=false;
+            if(error.error.email[0]=='A user is already registered with this e-mail address.')
+            {
+              this.emailAlreadyExist=true;
+              causeErrorFound=true;
+            }else{
+              this.emailAlreadyExist=false;
+            }
+
+            if(!causeErrorFound){
+              this.otherEmailError=true;
+            }else{
+              this.otherEmailError=false;
+            }
+          }else{
+            this.emailAlreadyExist=false;
+            this.otherEmailError=false;
+          }
+       
+
+          // this.usernameAlreadyExist;
+          //  if (this.userForm.get('username').value == '') { this.usernameEmpty=true; } else { this.usernameEmpty=false }
+          // emailAlreadyExist;
+          // this.passwordWeak;
+
+        },
         )
     }else{
       console.log(this.userForm);
