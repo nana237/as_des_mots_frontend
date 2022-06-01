@@ -11,16 +11,21 @@
       <div class="jmiddle">
 
         <div class="myfield">
-          <label for="username" class="mylabel">Votre nom d’utilisateur</label>
+            <span *ngIf="invalidCredential" class="noticeinvalid">Nom d'utilisateur ou mots de passe incorrect</span>
+        </div>
+        <div class="myfield">
+            <span *ngIf="emptyUserName" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <label for="username" class="mylabel">Votre nom d’utilisateur</label>
           <input id="username" type="text" class="mytextfield" formControlName="username"  placeholder="Nom d'utilisateur">
         </div>
         <div class="myfield">
-          <label for="password" class="mylabel">Votre mot de pass</label>
+            <span *ngIf="emptyPassword" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <label for="password" class="mylabel">Votre mot de pass</label>
           <input id="password" type="password" formControlName="password" class="mytextfield" placeholder="Mot de pass">
         </div>
       </div>
       <div class="jbottom">
-        <Button type="submit" class="btnValidate">Se Connecter</Button>
+        <Button type="submit" class="btnValidate">Se Connecter <ion-spinner *ngIf="loading" class="circularLoader" name="crescent"></ion-spinner> </Button>
         <span class="underValidate">Pas de compte ? <span class="greelink"  [routerLink]="['/inscription']">Inscrivez vous</span></span>
       </div>
     </form>

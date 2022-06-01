@@ -14,7 +14,7 @@
         <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
 
           <div class="myfield">
-            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="emptyName" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
             <label for="name" class="mylabel">Votre nom </label>
             <input id="name" type="text" formControlName="name" class="mytextfield" placeholder="Nom">
           </div>
@@ -27,7 +27,7 @@
             </select>
           </div>
           <div class="myfield">
-            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="emptyLevel" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
             <label for="level" class="mylabel">Votre niveau </label>
             <select name="level" id="level" formControlName="level" class="myselectfield" >
               <option value="">Niveau</option>
@@ -42,7 +42,7 @@
           </div>
 
           <div class="myfield">
-            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="emptyGender" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
             <label for="genre" class="mylabel">Votre genre </label>
             <select name="genre" id="genre" formControlName="genre" class="myselectfield" >
               <option value="">Genre</option>
@@ -52,7 +52,7 @@
           </div>
 
           <div class="myfield">
-            <span *ngIf="false" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
+            <span *ngIf="emptyTown" class="noticeinvalid">Ce champs ne doit pas rester vide</span>
             <label for="town" class="mylabel">Votre ville </label>
             <select name="town" id="town" formControlName="town" class="myselectfield" >
               <option value="">Ville</option>
@@ -63,7 +63,7 @@
 
 
           <div class="jbottom">
-            <Button type="submit" class="btnValidate">Compléter</Button>
+            <Button type="submit" class="btnValidate">Compléter <ion-spinner *ngIf="loading" class="circularLoader" name="crescent"></ion-spinner> </Button>
             <!-- <span class="underValidate">Pas de compte ? <span class="greelink">Inscrivez vous</span></span> -->
           </div>
 

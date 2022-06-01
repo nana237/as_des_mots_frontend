@@ -28,6 +28,8 @@ export class InscriptionPage implements OnInit {
   otherPasswordError;
   confirmEmpty;
 
+  loading=false;
+
   constructor(
     private formBuilder: FormBuilder,
     private auth_: AuthService,
@@ -80,7 +82,8 @@ export class InscriptionPage implements OnInit {
 
   onSubmitForm(){
     console.log("submit");
-    if(this.validateForm()){
+    if(this.validateForm() && !this.loading){
+      this.loading=true;
       console.log(this.userForm);
       console.log(this.userForm.value);
       console.log( this.userForm.get('username').value);
@@ -103,12 +106,14 @@ export class InscriptionPage implements OnInit {
         data=>{
           console.log(data);
           this.mydata = data;
+          this.loading=false;
           if(this.mydata.user){
             this.auth_.userdata=this.mydata.user;
             this.router.navigateByUrl('complete-info');
           }
         },
         error=>{
+          this.loading=false;
           console.warn(error);
           if(error.error.password1.length>0){
             let causeErrorFound=false;
@@ -178,7 +183,6 @@ export class InscriptionPage implements OnInit {
             this.otherEmailError=false;
           }
        
-
           // this.usernameAlreadyExist;
           //  if (this.userForm.get('username').value == '') { this.usernameEmpty=true; } else { this.usernameEmpty=false }
           // emailAlreadyExist;

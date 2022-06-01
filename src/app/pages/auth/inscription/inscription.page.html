@@ -84,12 +84,13 @@
             <span *ngIf="passwordWeak" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
             <span *ngIf="passwordToCommun" class="noticeinvalid">mot de passe trop commun veuillez essayer un autre</span>
             <span *ngIf="otherPasswordError" class="noticeinvalid">mot de passe pas assez puissant veuillez essayer un autre</span>
-            <label for="password2" class="mylabel"><span class="redStar">*</span> Confirmation du mot de pass</label>
+            <!-- <span class="redStar">*</span> -->
+            <label for="password2" class="mylabel">Confirmation du mot de pass</label>
             <input id="password2" type="password" formControlName="password2" class="mytextfield" placeholder="Confirmation du mot de pass">
           </div>
 
           <div class="jbottom">
-            <Button type="submit" class="btnValidate">S'inscrire</Button>
+            <Button type="submit" class="btnValidate">S'inscrire <ion-spinner *ngIf="loading" class="circularLoader" name="crescent"></ion-spinner> </Button>
             <span class="underValidate">Déjà inscrit ? <span class="greelink" [routerLink]="['/connexion']">Conncetez vous</span></span>
           </div>
         </form>
