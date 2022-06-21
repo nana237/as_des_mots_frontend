@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'complete-info',
     loadChildren: () => import('./pages/auth/complete-info/complete-info.module').then( m => m.CompleteInfoPageModule)
   },
+  {
+    path: 'game-config',
+    loadChildren: () => import('./pages/config/game-config/game-config.module').then( m => m.GameConfigPageModule)
+  },
 
 ];
 
