@@ -1,0 +1,62 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>
+  <img class="logo" src="assets/icon/logo.svg" alt="">
+    accueil
+  </ion-title>
+  <span>
+    icon user
+  </span>
+  <span>nom utilisateur</span>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="myWrapper">
+    <!-- <button class="btnStart">Nouvelle partie</button> -->
+    <div class="modal" *ngIf="false">
+      <div class="blocIncorrect" *ngIf="false">
+        <span class="textIncorrect">incorrect</span>
+        <span class="correctText">Blablabla</span>
+        <span class="btnOk">OK</span>
+      </div>
+      <div class="blocCorrect" *ngIf="false">
+        Correct
+      </div>
+      <div class="blocIncorrectOnLine" *ngIf="true">
+        Incorrect
+      </div>
+    </div>
+
+    <div class="waitingBloc" *ngIf="false">
+      <div class="waitingText">Veuillez patienter</div>
+      <p class="configText">Partie en cour de configuration</p>
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+    <div class="BlockRound" *ngIf="false">
+      <Div class="round">Démi Finale</Div>
+      <span class="manche" *ngIf="true">Manche 1</span>
+    </div>
+
+<!-- ======================== question bloc ========================== -->
+    <div class="blockQuestion" *ngIf="false">
+      <img class="speaker" src="assets/images/partie/speaker.svg" alt="">
+      <input type="text" class="txtQuestion">
+      <button class="btnValidate">Valider</button>
+    </div>
+    <div class="blockQonline">
+      <span *ngIf="false">Epelé le mot </span>
+      <span *ngIf="false">en attente...</span>
+      <span *ngIf="false">Vous êtes le prochain</span>
+      <span *ngIf="false">Vous avez perdu</span>
+      <div class="mancheWin" *ngIf="false"> Vous avez réussi cette manche <br> <span>Vous passerez à la manche suivante</span> </div>
+      <div class="gameWin" *ngIf="true"> <span>Félicitation !</span> <span class="detaitText">Vous avez gagné le tournois</span> </div>
+    </div>
+    <button class="btnLeave" *ngIf="false">Abandoner</button>
+    <button class="btnLeave" *ngIf="true">Home</button>
+<!-- ======================== question bloc ========================== -->
+
+  </div>
+
+</ion-content>

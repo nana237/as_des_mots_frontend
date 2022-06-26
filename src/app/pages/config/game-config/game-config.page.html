@@ -1,65 +1,61 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>game-config</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 <div>
-  <div>Veuillez configurer votre partie</div>
-  <div>
-    <Span>Ajouter des participants</Span>
-    <ion-searchbar placeholder="Nom d'utilisateur du participant" inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar>
-    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
-      Ajouter
-    </ion-button>
-    <span>participant 1</span>
-    <span>participant 2</span>
-    <span>participant 3</span>
-    <span>participant 4</span>
-    <span>participant 5</span>
-    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
-      Modifier
-    </ion-button> 
-    <span>les modifications annulerons toutes les configuration suivantes</span>
+  <h3 class="text-title">Veuillez configurer votre partie</h3>
+  <div class="myWrapper">
+    <div class="bloc1">
+      <Span>Ajouter des participants</Span>
+      <ion-searchbar placeholder="Nom d'utilisateur du participant" inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar>
+      <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+        Ajouter
+      </ion-button>
+      <span>participant 1</span>
+      <span>participant 2</span>
+      <span>participant 3</span>
+      <span>participant 4</span>
+      <span>participant 5</span>
+      <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+        Modifier
+      </ion-button>
+      <span>les modifications annulerons toutes les configuration suivantes</span>
 
-  </div>
-  <div>
-    Nombre de participants
-    <input type="text">
-    <div>
-      chevron gauche
-      Winner
-      Arbre de tour
-      1 Manche
-      chevron droit
     </div>
-    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
-      Valider
-    </ion-button>
-    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
-      Commencer
-    </ion-button>
-  </div>
-  <div>
-    <Span>Ajouter des questions</Span>
-    <select name="niv" id="niv">
-      <option value="">niveau</option>
-    </select>
-    
-    <select name="BlQ" id="BlQ">
-      <option value="">Bloc de questions</option>
-    </select>
-    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
-      Ajouter
-    </ion-button>
+    <div class="bloc2">
+      Nombre de participants
+      <input type="text">
+      <div>
+        chevron gauche
+        Winner
+        Arbre de tour
+        1 Manche
+        chevron droit
+      </div>
+      <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+        Valider
+      </ion-button>
+      <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+        Commencer
+      </ion-button>
+    </div>
+    <div class="bloc3">
+      <Span>Ajouter des questions</Span>
+      <select name="niv" id="niv">
+        <option value="">niveau</option>
+      </select>
 
-    <div>
-      <span>Bloc 1</span>
+      <select name="BlQ" id="BlQ">
+        <option value="">Bloc de questions</option>
+      </select>
+      <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+        Ajouter
+      </ion-button>
+
+      <div>
+        <span>Bloc 1</span>
+      </div>
+      <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+        Valider
+      </ion-button>
     </div>
-    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
-      Valider
-    </ion-button>
   </div>
 </div>
 </ion-content>

@@ -1,0 +1,20 @@
+.myWrapper{
+  height: 100vh;
+  width: 100vw;
+  background: url(../../../../assets/images/bg-accueil.svg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5em 0 5em 0;
+
+}
+
+.btnStart{
+  color: black;
+  font-size: 1.5em;
+  background-color: var(--ion-color-warning);
+  border-radius: 3em;
+  padding: 0.8em 3em 0.8em 3em;
+}

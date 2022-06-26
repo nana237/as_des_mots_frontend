@@ -34,6 +34,22 @@ const routes: Routes = [
     path: 'game-config',
     loadChildren: () => import('./pages/config/game-config/game-config.module').then( m => m.GameConfigPageModule)
   },
+  {
+    path: 'game',
+    loadChildren: () => import('./pages/partie/game/game.module').then( m => m.GamePageModule)
+  },
+  {
+    path: 'score',
+    loadChildren: () => import('./pages/partie/score/score.module').then( m => m.ScorePageModule)
+  },
+  {
+    path: 'rejoindre',
+    loadChildren: () => import('./pages/partie/rejoindre/rejoindre.module').then( m => m.RejoindrePageModule)
+  },
+  {
+    path: 'leve-choice',
+    loadChildren: () => import('./pages/partie/leve-choice/leve-choice.module').then( m => m.LeveChoicePageModule)
+  },
 
 ];
 
