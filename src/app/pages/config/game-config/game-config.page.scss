@@ -1,3 +1,16 @@
+ion-content {
+  position: relative;
+}
+.background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: url(../../../../assets/images/bg-accueil.svg);
+  background-size: cover;
+}
+
 .text-title{
   text-align: center;
 }
@@ -7,13 +20,123 @@
   justify-content: space-between;
 }
 
+.bloc{
+  // align-items: center;
+}
+
 .bloc1{
   width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 1.5em;
+
+  .searchbar{
+    width: 98%;
+    margin: 1em 0 1em 0;
+    padding-right: 1.25em;
+
+    &::placeholder{
+      font-size: 0.8em;
+      font-family: 'Circular_Light';
+    }
+  }
+
+  .participant{
+    margin-top: 0.5em;
+  }
+
+  .text-bottom{
+    margin-top: 1.5em;
+    font-size: 0.8em;
+    font-family: 'Circular_Light';
+  }
 }
 .bloc2{
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .txtNumParticp{
+    width: 2.5em;
+    height: 2em;
+    font-size: 2em;
+    margin-top: 1em;
+  }
+
+  .blocThree{
+    display: flex;
+    align-items: center;
+    margin: 2em 0 3em 0;
+  }
+  .threeContain{
+    border: 3px solid black;
+    padding: 1em;
+  }
+  .three{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .chevronLeft{
+    transform: translateX(-2em);
+    cursor: pointer;
+  }
+
+  .chevronRight{
+    transform: translateX(2em);
+    cursor: pointer;
+  }
+
+  .nbManche{
+    margin-top: 2em;
+    text-align: center;
+  }
 }
 .bloc3{
   width: 25%;
+  padding-right: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
+  .mySelect{
+    width: 10em;
+    height: 2em;
+    font-size: 1em;
+    font-family: 'Circular_Light';
+    margin-top: 1em;
+
+    option{
+      font-size: 1em;
+      font-family: 'Circular_Light';
+    }
+  }
+
+  .BlocBQ{
+    margin-bottom: 2em;
+  }
+
+  .BQuest{
+    margin-top: 1em;
+  }
+}
+
+.btnBlue{
+  background-color: var(--ion-color-primary);
+  color: black;
+  font-size: 1em;
+  padding: 0.5em 2em 0.5em 2em;
+  border-radius: 3.5px;
+  margin-top: 0.5em;
+}
+
+.btnOrange{
+  color: black;
+  font-size: 1em;
+  background-color: var(--ion-color-warning);
+  border-radius: 3em;
+  padding: 0.8em 3em 0.8em 3em;
+  margin-top: 2em;
 }

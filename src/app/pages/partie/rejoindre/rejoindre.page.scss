@@ -19,12 +19,12 @@ ion-content{
 }
 
 .blockQuestion{
-  margin-top: 15em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   width: 100vw;
+  height: 100vw;
 }
 
 .btnStart{
@@ -37,6 +37,8 @@ ion-content{
   padding-bottom: 0.8em;
   padding-left: 2em;
   padding-right: 2em;
+  // padding: 0.5em 2.5em 0.5em 2.5em;
+
 }
 
 .modal{
@@ -94,27 +96,28 @@ ion-content{
 /*******************************************/
 .title-question{
   text-align: center;
+  font-size: 1em;
 }
 
 .askJoin{
   margin-top: 4em;
-  font-size: 1.5em;
+  font-size: 1em;
   color: var(--ion-color-dark);
 }
 
 .btnJoin{
   color: black;
-  font-size: 1.5em;
+  font-size: 1em;
   background-color: var(--ion-color-warning);
   border-radius: 3em;
-  padding: 0.8em 3em 0.8em 3em;
+  padding: 0.7em 2.5em 0.7em 2.5em;
   margin-top: 4em;
 }
 
 .btnDecline{
   background-color: var(--ion-color-danger);
   color: black;
-  font-size: 1.5em;
+  font-size: 1em;
   margin-right: 2em;
   position: absolute;
   bottom: 3.5em;

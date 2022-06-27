@@ -15,15 +15,15 @@
   <div class="myWrapper">
     <!-- <button class="btnStart">Nouvelle partie</button> -->
     <div class="modal" *ngIf="false">
-      <div class="blocIncorrect" *ngIf="false">
-        <span class="textIncorrect">incorrect</span>
+      <div class="blocIncorrect" *ngIf="true">
+        <span class="textIncorrect">Incorrect</span>
         <span class="correctText">Blablabla</span>
         <span class="btnOk">OK</span>
       </div>
       <div class="blocCorrect" *ngIf="false">
         Correct
       </div>
-      <div class="blocIncorrectOnLine" *ngIf="true">
+      <div class="blocIncorrectOnLine" *ngIf="false">
         Incorrect
       </div>
     </div>
@@ -40,21 +40,21 @@
     </div>
 
 <!-- ======================== question bloc ========================== -->
-    <div class="blockQuestion" *ngIf="false">
+    <div class="blockQuestion" *ngIf="true">
       <img class="speaker" src="assets/images/partie/speaker.svg" alt="">
       <input type="text" class="txtQuestion">
       <button class="btnValidate">Valider</button>
     </div>
-    <div class="blockQonline">
+    <div class="blockQonline" *ngIf="false">
       <span *ngIf="false">Epelé le mot </span>
-      <span *ngIf="false">en attente...</span>
+      <span *ngIf="true">en attente...</span>
       <span *ngIf="false">Vous êtes le prochain</span>
       <span *ngIf="false">Vous avez perdu</span>
       <div class="mancheWin" *ngIf="false"> Vous avez réussi cette manche <br> <span>Vous passerez à la manche suivante</span> </div>
-      <div class="gameWin" *ngIf="true"> <span>Félicitation !</span> <span class="detaitText">Vous avez gagné le tournois</span> </div>
+      <div class="gameWin" *ngIf="false"> <span>Félicitation !</span> <span class="detaitText">Vous avez gagné le tournois</span> </div>
     </div>
-    <button class="btnLeave" *ngIf="false">Abandoner</button>
-    <button class="btnLeave" *ngIf="true">Home</button>
+    <button class="btnLeave" *ngIf="true">Abandoner</button>
+    <button class="btnLeave" *ngIf="false">Home</button>
 <!-- ======================== question bloc ========================== -->
 
   </div>
