@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'leve-choice',
     loadChildren: () => import('./pages/partie/leve-choice/leve-choice.module').then( m => m.LeveChoicePageModule)
   },
+  {
+    path: 'jury-f-up',
+    loadChildren: () => import('./pages/partie/jury-f-up/jury-f-up.module').then( m => m.JuryFUpPageModule)
+  },
 
 ];
 
