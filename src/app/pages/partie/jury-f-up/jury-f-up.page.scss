@@ -3,32 +3,76 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
+    padding: 0 2em 0 2em;
+    background: url(../../../../assets/images/bg-accueil.svg);
+  }
 
 .BlocTop{
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    margin-top: 2em;
 
     .minBlocLeft{
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        :nth-child(n){
+          margin-top: 0.5em;
+        }
     }
 
     .minBlocCenter{
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 2em;
+        // padding-top: 10em;
         margin-bottom: 2em;
+        margin: auto;
+        margin-top: 5em;
+
+
+        :first-child{
+          margin-bottom: 3em;
+        }
+
+        :nth-child(2){
+          margin-bottom: 2em;
+        }
+
+        :nth-child(3){
+          letter-spacing: 0.5em;
+          font-size: 1.5em;
+          color: var(--ion-color-warning);
+        }
+
+        :last-child{
+          margin-top: 2em;
+        }
     }
 
     .minBlocRight{
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+
+        :nth-child(n){
+          margin-top: 0.5em;
+        }
+
+        :nth-child(3){
+          margin-top: 2em;
+        }
     }
 }
 
@@ -37,13 +81,8 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-}
-.textGreen{
-
-}
-
-.textRed{
-
+    margin: 5em 0 2em 0;
+    padding: 0 3em 0 3em;
 }
 
 .btn{
@@ -55,11 +94,38 @@
     margin-top: 2em;
 }
 .btnRed{
-    background-color: var(--ion-color-warning);
+    background-color: var(--ion-color-danger);
 }
 .btnGreen{
-    background-color: var(--ion-color-warning);
+    background-color: var(--ion-color-success);
 }
+
+.textGreen{
+  color: var(--ion-color-danger);
+}
+
+.textRed{
+  color: var(--ion-color-success);
+
+}
+
+.circleContaint{
+  width: 7em;
+  height: 7em;
+  border: 3px solid;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.BlocBottom{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2em;
+}
+
 .btnOrange{
-    background-color: var(--ion-color-warning);
+  background-color: var(--ion-color-warning);
 }
