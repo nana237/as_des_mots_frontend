@@ -20,7 +20,7 @@ export class GameConfigPage implements OnInit {
 
   constructor(
     private config_: ConfigService
-  ) { 
+  ) {
     this.initialize()
   }
 
@@ -103,4 +103,6 @@ export class GameConfigPage implements OnInit {
       }
     )
   }
+
+  // on entre le nombre de personne qui passe au tour suivant => on ressort le nombre de groupe
 }
