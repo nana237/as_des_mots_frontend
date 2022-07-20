@@ -10,19 +10,35 @@ export class GameConfigPage implements OnInit {
   TsearchPerson
   searchPersonValue
   Participants=[]
+  TabLevel
+  currentLevel
+
+  users:Array<string>=['suman', 'alex', 'rony'];
+  currentSelectedUser:string;
+  tabBlocQ: Object;
+  tabSelectedBlocQ=[]
 
   constructor(
     private config_: ConfigService
-  ) { }
+  ) { 
+    this.initialize()
+  }
 
   ngOnInit() {
+  }
+
+  initialize(){
+    this.getAllNiveau()
+    this.currentLevel={id:'',
+    name:'niveau',
+    value:''}
   }
 
   searchPerson($event){
     console.log($event)
     console.log(this.searchPersonValue)
     if(this.searchPersonValue != ""){
-      this.config_.searchPerson("ad").subscribe(
+      this.config_.searchPerson(this.searchPersonValue).subscribe(
         data=>{
           this.TsearchPerson=data
           console.log(this.TsearchPerson)
@@ -34,15 +50,57 @@ export class GameConfigPage implements OnInit {
     }
   }
 
-  onClickSperson(person, trackelement){
-    console.log(trackelement)
-    if (this.Participants.indexOf(person)>0) {
-      this.Participants.splice(this.Participants.indexOf(person), 1)
-    }else{
-      this.Participants.push(person)
-    }
+  onClickSperson(person){
+    this.Participants.push(person)
+    this.searchPersonValue = ""
+    this.TsearchPerson=[]
     console.log(this.Participants)
   }
 
+  onClickParticipant(index){
+    this.Participants.splice(index, 1)
+  }
 
+  onLevelSchange($event){
+    console.log($event)
+    console.log(this.currentLevel)
+    this.getBlocQuestionByLevel(this.currentLevel)
+  }
+
+  onAddBlocQ(blocQ){
+      this.tabSelectedBlocQ.push(blocQ)
+  }
+
+  onClicBlocSQ(index){
+    this.tabSelectedBlocQ.splice(index,1)
+  }
+
+
+  getSelectedUserAccess(){
+    console.log("Current Selected User", this.currentSelectedUser)
+  }
+
+  getAllNiveau(){
+    this.config_.getAllNiveau().subscribe(
+      data=>{
+        this.TabLevel=data
+        console.log(this.TabLevel)
+      },
+      error=>{
+        console.warn(error)
+      }
+    )
+  }
+
+  getBlocQuestionByLevel(level){
+    this.config_.getBlocQuestionByLevel(level).subscribe(
+      data=>{
+        this.tabBlocQ=data
+        console.log(this.tabBlocQ)
+      },
+      error=>{
+        console.warn(error)
+      }
+    )
+  }
 }

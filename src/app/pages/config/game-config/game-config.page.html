@@ -6,22 +6,24 @@
       <Span class="bloc1-title">Ajouter des participants</Span>
       <input class="searchbar" type="search" [(ngModel)]="searchPersonValue" (input)="searchPerson($event)" placeholder="Nom d'utilisateur du participant" name="" id="">
       <!-- <ion-searchbar  inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar> -->
-      test
-      <div *ngFor="let person of TsearchPerson; trackBy: trackElement;" (click)="onClickSperson(person, trackElement)">
+      
+      <div *ngFor="let person of TsearchPerson; trackBy: trackElement;" (click)="onClickSperson(person)" class="participant">
         {{person.username}}
       </div>
-      <button class="btnBlue">Ajouter</button>
-      <div *ngFor="let participant of Participants" class="participant">
+      <div class="divider"></div>
+      <!-- <button class="btnBlue">Ajouter</button> -->
+      <div *ngFor="let participant of Participants; let index = index;" (click)="onClickParticipant(index)" class="participant">
         {{participant.username}}
       </div>
       <button class="btnBlue">Modifier</button>
+      <button class="btnBlue">Valider</button>
 
       <div class="text-bottom">les modifications annulerons toutes les configuration suivantes</div>
 
     </div>
     <div class="bloc2 bloc">
       Nombre de participants
-      <input class="txtNumParticp" type="number">
+      <input class="txtNumParticp" type="number" [(ngModel)]="Participants.length" readonly>
       <div class="blocThree">
        <img class="chevronLeft" src="assets/images/config/chevron-left.svg" alt="">
        <div class="threeContain">
@@ -35,17 +37,22 @@
     </div>
     <div class="bloc3 bloc">
       <Span>Ajouter des questions</Span>
-      <select class="mySelect" name="niv" id="niv">
-        <option value="">niveau</option>
+      <select class="mySelect" name="niv" id="niv" aria-placeholder="niveau" [(ngModel)]="currentLevel" (change)="onLevelSchange($event)">
+        <!-- <option value="" [selected]="true">niveau</option> -->
+        <option *ngFor="let level of TabLevel" value="{{level.id}}">{{level.name}}</option>
       </select>
 
-      <select class="mySelect" name="BlQ" id="BlQ">
+
+      <!-- <select class="mySelect" [(ngModel)]="currentBlocQ" name="BlQ" id="BlQ">
         <option value="">Bloc de questions</option>
-      </select>
-      <button class="btnBlue">Ajouter</button>
+        <option *ngFor="let blocQ of tabBlocQ" value="{{blocQ.id}}">{{blocQ.name}}</option>
+      </select> -->
+        <div *ngFor="let blocQ of tabBlocQ" class="BQuest" (click)="onAddBlocQ(blocQ)">{{blocQ.name}}</div>
+        <!-- <button class="btnBlue" >Ajouter</button> -->
+        <div class="divider"></div>
 
       <div class="BlocBQ">
-        <div class="BQuest">Bloc 1</div>
+        <div *ngFor="let blocQ of tabSelectedBlocQ; let index=index" class="BQuest"  (click)="onClicBlocSQ(index)"> {{blocQ.name}}</div>
       </div>
       <button class="btnBlue">Valider</button>
     </div>

@@ -42,8 +42,10 @@ ion-content {
     }
   }
 
+
   .participant{
     margin-top: 0.5em;
+    cursor: pointer;
   }
 
   .text-bottom{
@@ -63,6 +65,7 @@ ion-content {
     height: 2em;
     font-size: 2em;
     margin-top: 1em;
+    text-align: center;
   }
 
   .blocThree{
@@ -120,6 +123,7 @@ ion-content {
 
   .BQuest{
     margin-top: 1em;
+    cursor: pointer;
   }
 }
 

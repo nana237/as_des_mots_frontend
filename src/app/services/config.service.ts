@@ -14,4 +14,12 @@ export class ConfigService {
   searchPerson(data){
     return this.http.get(baseUrl + 'person/?search=' + data);
   }
+
+  getAllNiveau(){
+    return this.http.get(baseUrl + 'level/');
+  }
+
+  getBlocQuestionByLevel(data){
+    return this.http.get(baseUrl + 'Word_package/?level=' + data);
+  }
 }
