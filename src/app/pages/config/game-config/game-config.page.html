@@ -4,14 +4,16 @@
   <div class="myWrapper">
     <div class="bloc1 bloc">
       <Span class="bloc1-title">Ajouter des participants</Span>
-      <input class="searchbar" type="search" placeholder="Nom d'utilisateur du participant" name="" id="">
+      <input class="searchbar" type="search" [(ngModel)]="searchPersonValue" (input)="searchPerson($event)" placeholder="Nom d'utilisateur du participant" name="" id="">
       <!-- <ion-searchbar  inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar> -->
+      test
+      <div *ngFor="let person of TsearchPerson; trackBy: trackElement;" (click)="onClickSperson(person, trackElement)">
+        {{person.username}}
+      </div>
       <button class="btnBlue">Ajouter</button>
-      <div class="participant">participant 1</div>
-      <div class="participant">participant 2</div>
-      <div class="participant">participant 3</div>
-      <div class="participant">participant 4</div>
-      <div class="participant">participant 5</div>
+      <div *ngFor="let participant of Participants" class="participant">
+        {{participant.username}}
+      </div>
       <button class="btnBlue">Modifier</button>
 
       <div class="text-bottom">les modifications annulerons toutes les configuration suivantes</div>
