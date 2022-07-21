@@ -15,7 +15,7 @@ export class GameConfigPage implements OnInit {
 
   users:Array<string>=['suman', 'alex', 'rony'];
   currentSelectedUser:string;
-  tabBlocQ: Object;
+  tabBlocQ;
   tabSelectedBlocQ=[]
 
   constructor(

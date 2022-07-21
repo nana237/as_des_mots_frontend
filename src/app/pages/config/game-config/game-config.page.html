@@ -7,7 +7,7 @@
       <input class="searchbar" type="search" [(ngModel)]="searchPersonValue" (input)="searchPerson($event)" placeholder="Nom d'utilisateur du participant" name="" id="">
       <!-- <ion-searchbar  inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar> -->
       
-      <div *ngFor="let person of TsearchPerson; trackBy: trackElement;" (click)="onClickSperson(person)" class="participant">
+      <div *ngFor="let person of TsearchPerson" (click)="onClickSperson(person)" class="participant">
         {{person.username}}
       </div>
       <div class="divider"></div>
