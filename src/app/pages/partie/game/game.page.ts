@@ -33,7 +33,7 @@ export class GamePage implements OnInit {
 		this.selectedRate = 1;
 		// Dirty Dancing for the win!
 		// this.text = "Me? ... I’m scared of everything. I’m scared of what I saw, of what I did, of who I am. And most of all, I’m scared of walking out of this room and never feeling the rest of my whole life ... the way I feel when I’m with you.";
-		this.text = "Bonjour \n Banane \n Salut \n As des Mots \n Prononciation \n Apprentissage \n étudier \n Décourvire \n s'amuser \n évoluer.";
+		this.text = "Bonjour \n Banane \n Salut \n As des Mots \n Prononciation \n Apprentissage \n étudier \n Décourvire \n s'amuser \n évoluer. ";
 		this.sayCommand = "";
 
 		// These are "recommended" in so much as that these are the voices that I (Ben)
