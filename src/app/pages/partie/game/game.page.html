@@ -14,7 +14,7 @@
 <ion-content>
   <div class="myWrapper">
     <!-- <button class="btnStart">Nouvelle partie</button> -->
-    <div class="modal" *ngIf="false">
+    <div class="modal" *ngIf="viewModal">
 
 
       <!-- <div>
@@ -128,12 +128,12 @@
         </div>
       </div> -->
 
-      <div class="blocIncorrect" *ngIf="true">
+      <div class="blocIncorrect" *ngIf="!found">
         <span class="textIncorrect">Incorrect</span>
-        <span class="correctText">Blablabla</span>
-        <span class="btnOk">OK</span>
+        <span class="correctText">{{text}}</span>
+        <span class="btnOk" (click)="execute()" >OK</span>
       </div>
-      <div class="blocCorrect" *ngIf="false">
+      <div class="blocCorrect" *ngIf="found">
         Correct
       </div>
       <div class="blocIncorrectOnLine" *ngIf="false">
@@ -172,6 +172,7 @@
 
     <!-- [(ngModel)]="text" -->
       <input type="text" class="txtQuestion"
+	    [(ngModel)]="answer"
       (input)="updateSayCommand()"
       (keydown.Meta.Enter)="speak()"
      >
@@ -180,7 +181,7 @@
         [waTextToSpeech]="text | waUtterance: options"
         [waTextToSpeechPaused]="paused"
         (waTextToSpeechEnd)="onEnd()"> -->
-      <button class="btnValidate">Valider</button>
+      <button class="btnValidate" (click)="onValidate()">Valider</button>
     </div>
     <div class="blockQonline" *ngIf="false">
       <span *ngIf="false">Epelé le mot </span>

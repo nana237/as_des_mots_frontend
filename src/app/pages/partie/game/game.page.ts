@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 // import { waTextToSpeech, waTextToSpeechPaused, waTextToSpeechEnd, waUtterance } from '@ng-web-apis/speech';
 
 interface RecommendedVoices {
@@ -24,17 +25,38 @@ export class GamePage implements OnInit {
 	public selectedRate: number;
 	public selectedVoice: SpeechSynthesisVoice | null;
 	public text: string;
+	public TabWordTP = [];
+	public answer: string;
 	public voices: SpeechSynthesisVoice[];
+	found=false;
+	viewModal=false;
+	number = 0;
+	tabCandidate=['myusername1', 'myusername2', 'myusername3', 'myusername4']
+	showFormAnswer = false;
+	showFormWaiting = false;
+	showFormYouAreNext = false;
+	username = 'myusername1'
+	idPlayer= 0;
+	tour = 0;
+	currentplayer: string;
+	nFalse=10000;
+	totalTour = 2;
+	finish= false;
 
-  constructor() {
+  constructor(
+	  private router: Router
+  ) {
     this.voices = [];
 		this.rates = [ .25, .5, .75, 1, 1.25, 1.5, 1.75, 2 ];
 		this.selectedVoice = null;
 		this.selectedRate = 1;
 		// Dirty Dancing for the win!
 		// this.text = "Me? ... I’m scared of everything. I’m scared of what I saw, of what I did, of who I am. And most of all, I’m scared of walking out of this room and never feeling the rest of my whole life ... the way I feel when I’m with you.";
-		this.text = "Bonjour \n Banane \n Salut \n As des Mots \n Prononciation \n Apprentissage \n étudier \n Décourvire \n s'amuser \n évoluer. ";
+		// this.text = "Bonjour \n Banane \n Salut \n As des Mots \n Prononciation \n Apprentissage \n étudier \n Décourvire \n s'amuser \n évoluer. ";
+		this.text = "monsieur";
 		this.sayCommand = "";
+		this.TabWordTP = ['Bonjour', 'Salut', 'rhinomicine', 'médicament']
+		this.text = this.TabWordTP[0]
 
 		// These are "recommended" in so much as that these are the voices that I (Ben)
 		// could understand most clearly.
@@ -55,6 +77,14 @@ export class GamePage implements OnInit {
 		this.recommendedVoices[ "Veena" ] = true;
 		this.recommendedVoices[ "Victoria" ] = true;
 		this.recommendedVoices[ "Yuri" ] = true;
+
+		this.initialize();
+  }
+
+  public initialize(){
+	  this.initializePlayer();
+	  this.initializeTour();
+	  this.initializeWord();
   }
 
   public demoSelectedVoice() : void {
@@ -97,6 +127,10 @@ export class GamePage implements OnInit {
 			);
 
 		}
+
+		setTimeout(() => {
+			this.speak();
+		}, 3000);
   }
 
   onEnd(){
@@ -104,7 +138,7 @@ export class GamePage implements OnInit {
   }
 
   public speak() : void {
-
+		console.log('i speak')
 		if ( ! this.selectedVoice || ! this.text ) {
 
 			return;
@@ -172,6 +206,80 @@ export class GamePage implements OnInit {
 
 	}
 
+	private onValidate(){
+		this.showModal();
+		if(this.found){
+			setTimeout(() => {
+				this.execute();
+			}, this.found?2500:this.nFalse);
+		}
+	
+		console.log(this.found)
+		console.log(this.answer)
+	}
+
+	execute(){
+		console.log(this.found)
+		console.log(this.answer)
+		this.hideModal();
+		this.setnextWord();
+		this.setnextPlayer();
+		this.privateCleartInput();
+		if(!this.finish){
+			setTimeout(() => {
+				this.speak();
+			}, 500);
+		}
+	}
+
+	privateCleartInput(){
+		this.answer=""
+	}
+
+	private setn0(){
+		this.nFalse=0;
+	}
+
+	private setnextWord(){
+		this.number= (this.number+1)%this.TabWordTP.length;
+		this.text=this.TabWordTP[this.number]
+	}
+
+	private setnextPlayer(){
+		this.idPlayer= (1 + this.idPlayer)%this.tabCandidate.length;
+		if(this.idPlayer==0){
+			this.tour += 1;
+			if(this.tour>this.totalTour){
+				this.finish=true;
+			}
+		}
+		this.currentplayer = this.tabCandidate[this.idPlayer]
+
+		if(this.finish){
+			console.log('finish');
+			this.router.navigateByUrl('score')
+		}
+	}
+	private initializePlayer(){
+		this.idPlayer=0;
+	}
+	private initializeTour(){
+		this.tour=1;
+	}
+	private initializeWord(){
+		this.number=0;
+	}
+
+	private showModal(){
+		this.viewModal=true;
+		this.found = this.text.toLocaleLowerCase().trim()==this.answer.toLocaleLowerCase().trim()
+		// this.found=false;
+	}
+
+	private hideModal(){
+		this.viewModal=false;
+		this.found=false;
+	}
   //  Microsoft Hortense - French (France)
   // Google UK English Female
 
