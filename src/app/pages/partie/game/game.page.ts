@@ -5,6 +5,7 @@
 /* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameService } from 'src/app/services/game.service';
 // import { waTextToSpeech, waTextToSpeechPaused, waTextToSpeechEnd, waUtterance } from '@ng-web-apis/speech';
 
 interface RecommendedVoices {
@@ -31,7 +32,26 @@ export class GamePage implements OnInit {
 	found=false;
 	viewModal=false;
 	number = 0;
-	tabCandidate=['myusername1', 'myusername2', 'myusername3', 'myusername4']
+	tabCandidate=[
+		{
+			name:'myusername1',
+			score:[]
+		}, 
+		// {
+		// 	name:'myusername2',
+		// 	score:[]
+		// }, 
+		// {
+		// 	name:'myusername3',
+		// 	score:[]
+		// }, 
+		// {
+		// 	name:'myusername4',
+		// 	score:[]
+		// }, 
+		// 'myusername2', 'myusername3', 'myusername4'
+	]
+	
 	showFormAnswer = false;
 	showFormWaiting = false;
 	showFormYouAreNext = false;
@@ -44,7 +64,8 @@ export class GamePage implements OnInit {
 	finish= false;
 
   constructor(
-	  private router: Router
+	  private router: Router,
+	  private game_: GameService
   ) {
     this.voices = [];
 		this.rates = [ .25, .5, .75, 1, 1.25, 1.5, 1.75, 2 ];
@@ -216,6 +237,7 @@ export class GamePage implements OnInit {
 	
 		console.log(this.found)
 		console.log(this.answer)
+
 	}
 
 	execute(){
@@ -250,13 +272,16 @@ export class GamePage implements OnInit {
 		if(this.idPlayer==0){
 			this.tour += 1;
 			if(this.tour>this.totalTour){
+				this.tour-=1;
 				this.finish=true;
 			}
 		}
-		this.currentplayer = this.tabCandidate[this.idPlayer]
+		this.currentplayer = this.tabCandidate[this.idPlayer].name
 
 		if(this.finish){
 			console.log('finish');
+			this.game_.tabCandidate = this.tabCandidate
+			this.game_.tour = this.tour
 			this.router.navigateByUrl('score')
 		}
 	}
@@ -273,6 +298,9 @@ export class GamePage implements OnInit {
 	private showModal(){
 		this.viewModal=true;
 		this.found = this.text.toLocaleLowerCase().trim()==this.answer.toLocaleLowerCase().trim()
+		this.tabCandidate[this.idPlayer].score.push(this.found ? 1 : 0)
+		console.log(this.tabCandidate)
+
 		// this.found=false;
 	}
 
