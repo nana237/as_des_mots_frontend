@@ -7,6 +7,8 @@ import {baseUrl} from '../serverJs/apiUrl'
 })
 export class ConfigService {
 
+  mode
+
   constructor(
     private http: HttpClient
   ) { }

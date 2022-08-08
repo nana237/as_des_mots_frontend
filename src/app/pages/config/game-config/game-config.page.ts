@@ -12,6 +12,10 @@ export class GameConfigPage implements OnInit {
   Participants=[]
   TabLevel
   currentLevel
+  nbTour = 1
+  showS=false
+  onlineMode=false;
+  
 
   users:Array<string>=['suman', 'alex', 'rony'];
   currentSelectedUser:string;
@@ -32,6 +36,21 @@ export class GameConfigPage implements OnInit {
     this.currentLevel={id:'',
     name:'niveau',
     value:''}
+
+    if (this.config_.mode == "online") {
+      this.nbTour = 1
+      this.onlineMode=true
+      
+    }
+    this.setShowS()
+  }
+
+  setShowS(){
+    if (this.nbTour>1) {
+      this.showS=true;
+    }else{
+      this.showS=false;
+    }
   }
 
   searchPerson($event){
@@ -75,6 +94,14 @@ export class GameConfigPage implements OnInit {
     this.tabSelectedBlocQ.splice(index,1)
   }
 
+  onInviter(){
+    console.log(this.Participants)
+  }
+
+  inviter(candidat){
+
+  }
+
 
   getSelectedUserAccess(){
     console.log("Current Selected User", this.currentSelectedUser)
@@ -103,4 +130,5 @@ export class GameConfigPage implements OnInit {
       }
     )
   }
+
 }

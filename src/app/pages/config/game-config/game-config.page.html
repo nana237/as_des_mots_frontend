@@ -15,7 +15,7 @@
       <div *ngFor="let participant of Participants; let index = index;" (click)="onClickParticipant(index)" class="participant">
         {{participant.username}}
       </div>
-      <button class="btnBlue">Modifier</button>
+      <button (click)="onInviter()" class="btnBlue">Inviter</button>
       <button class="btnBlue">Valider</button>
 
       <div class="text-bottom">les modifications annulerons toutes les configuration suivantes</div>
@@ -27,8 +27,8 @@
       <div class="blocThree">
        <img class="chevronLeft" src="assets/images/config/chevron-left.svg" alt="">
        <div class="threeContain">
-        <img class="three" src="assets/images/config/eg-three.svg" alt="">
-        <div class="nbManche">3 Manches</div>
+        <img class="three" *ngIf="!onlineMode" src="assets/images/config/eg-three.svg" alt="">
+        <div class="nbManche"> {{nbTour}} Manche<span *ngIf="showS">s</span></div>
        </div>
        <img class="chevronRight" src="assets/images/config/chevron-right.svg" alt="">
       </div>

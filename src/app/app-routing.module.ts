@@ -54,6 +54,10 @@ const routes: Routes = [
     path: 'jury-f-up',
     loadChildren: () => import('./pages/partie/jury-f-up/jury-f-up.module').then( m => m.JuryFUpPageModule)
   },
+  {
+    path: 'game-mode-select',
+    loadChildren: () => import('./pages/partie/game-mode-select/game-mode-select.module').then( m => m.GameModeSelectPageModule)
+  },
 
 ];
 
