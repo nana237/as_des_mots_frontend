@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RealtimeService } from 'src/app/services/realtime.service';
 import { ConfigService } from '../../../services/config.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class GameConfigPage implements OnInit {
   tabSelectedBlocQ=[]
 
   constructor(
-    private config_: ConfigService
+    private config_: ConfigService,
+    private realtime_: RealtimeService
   ) { 
     this.initialize()
   }
@@ -96,6 +98,7 @@ export class GameConfigPage implements OnInit {
 
   onInviter(){
     console.log(this.Participants)
+    this.sendMsg()
   }
 
   inviter(candidat){
@@ -129,6 +132,16 @@ export class GameConfigPage implements OnInit {
         console.warn(error)
       }
     )
+  }
+
+  private message =  {
+    "message": "Je vais bien et toi ?",
+    "msg": "lol",
+  };
+
+  sendMsg() {
+    console.log("new message from client to websocket: ", this.message);
+    this.realtime_.messages.next(this.message);
   }
 
 }
