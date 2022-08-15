@@ -6,7 +6,7 @@
       <Span class="bloc1-title">Ajouter des participants</Span>
       <input class="searchbar" type="search" [(ngModel)]="searchPersonValue" (input)="searchPerson($event)" placeholder="Nom d'utilisateur du participant" name="" id="">
       <!-- <ion-searchbar  inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="focus"></ion-searchbar> -->
-      
+
       <div *ngFor="let person of TsearchPerson; trackBy: trackElement;" (click)="onClickSperson(person)" class="participant">
         {{person.username}}
       </div>
@@ -16,6 +16,7 @@
         {{participant.username}}
       </div>
       <button (click)="onInviter()" class="btnBlue">Inviter</button>
+      <button (click)="sendMsgTo2()" class="btnBlue">sendMsgTo2</button>
       <button class="btnBlue">Valider</button>
 
       <div class="text-bottom">les modifications annulerons toutes les configuration suivantes</div>

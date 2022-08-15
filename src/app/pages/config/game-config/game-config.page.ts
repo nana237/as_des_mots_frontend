@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { RealtimeService } from 'src/app/services/realtime.service';
 import { ConfigService } from '../../../services/config.service';
+import { WebsocketService } from '../../../services/websocket.service';
 
 @Component({
   selector: 'app-game-config',
   templateUrl: './game-config.page.html',
-  styleUrls: ['./game-config.page.scss'],
+  styleUrls: ['./game-config.page.scss']
 })
+
+
 export class GameConfigPage implements OnInit {
   TsearchPerson
   searchPersonValue
@@ -16,7 +19,7 @@ export class GameConfigPage implements OnInit {
   nbTour = 1
   showS=false
   onlineMode=false;
-  
+
 
   users:Array<string>=['suman', 'alex', 'rony'];
   currentSelectedUser:string;
@@ -25,8 +28,9 @@ export class GameConfigPage implements OnInit {
 
   constructor(
     private config_: ConfigService,
-    private realtime_: RealtimeService
-  ) { 
+    private realtime_: RealtimeService,
+    private websocket_: WebsocketService
+  ) {
     this.initialize()
   }
 
@@ -42,7 +46,7 @@ export class GameConfigPage implements OnInit {
     if (this.config_.mode == "online") {
       this.nbTour = 1
       this.onlineMode=true
-      
+
     }
     this.setShowS()
   }
@@ -135,13 +139,45 @@ export class GameConfigPage implements OnInit {
   }
 
   private message =  {
-    "message": "Je vais bien et toi ?",
-    "msg": "lol",
+    "message": "frontend Je vais bien et toi ?",
+    'emeteur': 'frontend emeteur',
+    'typeMessage': 'frontend typeMessage',
+    'mot': 'frontend mot',
+    'destinataire': 'frontend destinataire',
+    'prochain': 'frontend prochain',
+    'trouver': 'frontend trouver',
+    'initiateur': 'frontend initiateur',
+    'reponse': 'frontend reponse',
   };
 
   sendMsg() {
-    console.log("new message from client to websocket: ", this.message);
-    this.realtime_.messages.next(this.message);
+    // console.log("new message from client to websocket: ", this.message);
+    // this.realtime_[0].messages.next(this.message);
+    // console.log('this.Participants')
+    // console.log(this.Participants[0].username)
+    // this.sendMsgTo(this.Participants[0].username)
+
+    this.websocket_.listengMessage()
+    this.websocket_.pushMessage()
+  }
+
+  sendMsgTo(user){
+    let data = this.realtime_[0].createConWith(user);
+    console.log('data');
+    console.log(data);
+
+    console.log('TabMessageTo[user]');
+    console.log(this.realtime_[0].TabMessageTo[user]);
+
+    // this.realtime_.TabMessageTo[user].next(this.message);
+    // this.realtime_.messages2.next(this.message);
+  }
+
+  sendMsgTo2(user){
+    this.websocket_.sendMsgTo();
+
+    // console.log("send message 2");
+    // this.realtime_[0].messages2.next(this.message);
   }
 
 }
