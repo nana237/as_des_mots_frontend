@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RealtimeService } from 'src/app/services/realtime.service';
+import { AuthService } from '../../../services/auth.service';
 import { ConfigService } from '../../../services/config.service';
 import { WebsocketService } from '../../../services/websocket.service';
 
@@ -19,6 +20,9 @@ export class GameConfigPage implements OnInit {
   nbTour = 1
   showS=false
   onlineMode=false;
+  demande='Demande Participation'
+
+  waitting=false;
 
 
   users:Array<string>=['suman', 'alex', 'rony'];
@@ -29,7 +33,8 @@ export class GameConfigPage implements OnInit {
   constructor(
     private config_: ConfigService,
     private realtime_: RealtimeService,
-    private websocket_: WebsocketService
+    private websocket_: WebsocketService,
+    private auth_: AuthService
   ) {
     this.initialize()
   }
@@ -159,15 +164,36 @@ export class GameConfigPage implements OnInit {
 
     this.websocket_.listengMessage()
     this.websocket_.pushMessage()
+
+    for (let i = 0; i < this.Participants.length; i++) {
+      const participant = this.Participants[i];
+      this.sendMsgTo(participant.username)
+    }
   }
 
   sendMsgTo(user){
-    let data = this.realtime_[0].createConWith(user);
-    console.log('data');
-    console.log(data);
+    // let data = this.realtime_.createConWith(user);
+    // console.log('data');
+    // console.log(data);
 
-    console.log('TabMessageTo[user]');
-    console.log(this.realtime_[0].TabMessageTo[user]);
+    // console.log('TabMessageTo[user]');
+    // console.log(this.realtime_.TabMessageTo[user]);
+
+    let message={
+      message: "connexion",
+      emeteur: this.auth_.userdata.username,
+      typeMessage: this.websocket_.typesMessage.DP,
+      mot: '',
+      destinataire: user,
+      prochain: '',
+      trouver: '',
+      initiateur: this.auth_.userdata.username,
+      reponse: '',
+    }
+
+    this.websocket_.connectTo(user)
+    let subject = this.websocket_.pushMessageWith(user, message)
+    this.waitForUser(subject)
 
     // this.realtime_.TabMessageTo[user].next(this.message);
     // this.realtime_.messages2.next(this.message);
@@ -177,7 +203,16 @@ export class GameConfigPage implements OnInit {
     this.websocket_.sendMsgTo();
 
     // console.log("send message 2");
-    // this.realtime_[0].messages2.next(this.message);
+    // this.realtime_.messages2.next(this.message);
+  }
+
+  waitForUser(subject){
+    subject.subscribe({
+      next: msg=> {
+        console.log('depuis game config')
+        console.log(msg)
+      }
+    })
   }
 
 }

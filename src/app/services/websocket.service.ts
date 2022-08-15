@@ -1,16 +1,38 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as Rx from "rxjs";
 
 import { webSocket } from 'rxjs/webSocket'
+import { AuthService } from './auth.service';
 
+
+const BASE_REAL_TIME_URL = "ws://127.0.0.1:8000/ws/chat/"
 const subject = webSocket("ws://127.0.0.1:8000/ws/chat/lobby/")
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
 
-  constructor() {
+  Tsubject = {}
+
+  typesMessage={
+    'MQ':'MessageQuestion',
+    'MR':'MessageReponse',
+    'DP':'DemandeParticipation',
+    'RD':'ReponseDemande',
+    'START':'start',
+    'STOP':'stop'
+  }
+
+  currentMessage
+  messageByUser={}
+
+  constructor(
+    private auth_: AuthService,
+    private router: Router
+  ) {
     // this.listengMessage();
    }
 
@@ -68,28 +90,73 @@ export class WebsocketService {
     subject.complete();
   }
 
-  Multiplex(){
-    const observableA=
-    subject.multiplex(
-      ()=>({subscribe: 'A'}),
-      ()=>({unsubscribe: 'B'}),
-      message=> message.type === 'A'
-      );
+  connectTo(user){
+    this.Tsubject[user]= webSocket(BASE_REAL_TIME_URL + user + "/")
+    return this.Tsubject[user].subscribe({
+      next: msg=> {
+        console.log(msg)
+        this.currentMessage=msg
+        if(msg.destinataire==this.auth_.userdata.username){
+          switch (msg.typeMessage) {
+            case this.typesMessage.MQ:
 
-    const observableB=
-    subject.multiplex(
-      ()=>({subscribe: 'B'}),
-      ()=>({unsubscribe: 'B'}),
-      message=> message.type === 'B'
-    );
+              break;
+            case this.typesMessage.MR:
 
-    const subA = observableA.subscribe(messageForA=>console.log(messageForA));
-    const subB = observableB.subscribe(messageForB=>console.log(messageForB));
+              break;
+            case this.typesMessage.DP:
+              this.router.navigateByUrl('rejoindre')
+              break;
+            case this.typesMessage.RD:
+              this.messageByUser[user]=msg
+              break;
+            case this.typesMessage.START:
 
-    subA.unsubscribe();
-    subB.unsubscribe();
+              break;
+            case this.typesMessage.STOP:
 
+              break;
+
+            default:
+              break;
+          }
+        }
+      },
+      error: err => console.log(err),
+      complete: ()=> console.log('complete')
+    });
   }
+
+  disconnect(user){
+    this.Tsubject[user].complete();
+  }
+
+  pushMessageWith(user, message){
+    this.Tsubject[user].next(message)
+  }
+
+  // Multiplex(){
+  //   const observableA=
+  //   subject.multiplex(
+  //     ()=>({subscribe: 'A'}),
+  //     ()=>({unsubscribe: 'B'}),
+  //     message=> message.type === 'A'
+  //     );
+
+  //   const observableB=
+  //   subject.multiplex(
+  //     ()=>({subscribe: 'B'}),
+  //     ()=>({unsubscribe: 'B'}),
+  //     message=> message.type === 'B'
+  //   );
+
+  //   const subA = observableA.subscribe(messageForA=>console.log(messageForA));
+  //   const subB = observableB.subscribe(messageForB=>console.log(messageForB));
+
+  //   subA.unsubscribe();
+  //   subB.unsubscribe();
+
+  // }
 
 
 

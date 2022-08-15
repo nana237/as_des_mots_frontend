@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,7 @@ import { HttpClientModule, HttpClient } from "@angular/common/http";
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // Storage
+    Storage
   ],
   bootstrap: [AppComponent],
 })
