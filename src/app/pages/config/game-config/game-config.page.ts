@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RealtimeService } from 'src/app/services/realtime.service';
 import { AuthService } from '../../../services/auth.service';
 import { ConfigService } from '../../../services/config.service';
@@ -34,7 +35,8 @@ export class GameConfigPage implements OnInit {
     private config_: ConfigService,
     private realtime_: RealtimeService,
     private websocket_: WebsocketService,
-    private auth_: AuthService
+    private auth_: AuthService,
+    private router: Router
   ) {
     this.initialize()
   }
@@ -191,9 +193,41 @@ export class GameConfigPage implements OnInit {
       reponse: '',
     }
 
-    this.websocket_.connectTo(user)
+    this.websocket_.connectTo(user).subscribe({
+      next: msg=> {
+        console.log(msg)
+        this.websocket_.currentMessage=msg
+        if(msg.destinataire==this.auth_.userdata.username){
+          switch (msg.typeMessage) {
+            case this.websocket_.typesMessage.MQ:
+
+              break;
+            case this.websocket_.typesMessage.MR:
+
+              break;
+            case this.websocket_.typesMessage.DP:
+              this.router.navigateByUrl('rejoindre')
+              break;
+            case this.websocket_.typesMessage.RD:
+              this.websocket_.messageByUser[user]=msg
+              break;
+            case this.websocket_.typesMessage.START:
+
+              break;
+            case this.websocket_.typesMessage.STOP:
+
+              break;
+
+            default:
+              break;
+          }
+        }
+      },
+      error: err => console.log(err),
+      complete: ()=> console.log('complete')
+    })
     let subject = this.websocket_.pushMessageWith(user, message)
-    this.waitForUser(subject)
+    // this.waitForUser(subject)
 
     // this.realtime_.TabMessageTo[user].next(this.message);
     // this.realtime_.messages2.next(this.message);

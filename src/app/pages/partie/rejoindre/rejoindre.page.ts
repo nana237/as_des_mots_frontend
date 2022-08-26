@@ -13,7 +13,8 @@ export class RejoindrePage implements OnInit {
   constructor(
     private websocket: WebsocketService,
     private auth_: AuthService,
-    private router: Router
+    private router: Router,
+    private websocket_: WebsocketService
   ) { }
 
   ngOnInit() {
@@ -31,7 +32,39 @@ export class RejoindrePage implements OnInit {
       initiateur: this.websocket.currentMessage.initiateur,
       reponse: 'oui',
     }
-    this.websocket.connectTo(this.websocket.currentMessage.emeteur)
+    this.websocket.connectTo(this.websocket.currentMessage.emeteur).subscribe({
+      next: msg=> {
+        console.log(msg)
+        this.websocket_.currentMessage=msg
+        if(msg.destinataire==this.auth_.userdata.username){
+          switch (msg.typeMessage) {
+            case this.websocket_.typesMessage.MQ:
+
+              break;
+            case this.websocket_.typesMessage.MR:
+
+              break;
+            case this.websocket_.typesMessage.DP:
+              this.router.navigateByUrl('rejoindre')
+              break;
+            case this.websocket_.typesMessage.RD:
+              this.websocket_.messageByUser[this.auth_.userdata.username]=msg
+              break;
+            case this.websocket_.typesMessage.START:
+
+              break;
+            case this.websocket_.typesMessage.STOP:
+
+              break;
+
+            default:
+              break;
+          }
+        }
+      },
+      error: err => console.log(err),
+      complete: ()=> console.log('complete')
+    })
     this.websocket.pushMessageWith(this.websocket.currentMessage.emeteur, message)
   }
 
@@ -47,7 +80,39 @@ export class RejoindrePage implements OnInit {
       initiateur: this.websocket.currentMessage.initiateur,
       reponse: 'non',
     }
-    this.websocket.connectTo(this.websocket.currentMessage.emeteur)
+    this.websocket.connectTo(this.websocket.currentMessage.emeteur).subscribe({
+      next: msg=> {
+        console.log(msg)
+        this.websocket_.currentMessage=msg
+        if(msg.destinataire==this.auth_.userdata.username){
+          switch (msg.typeMessage) {
+            case this.websocket_.typesMessage.MQ:
+
+              break;
+            case this.websocket_.typesMessage.MR:
+
+              break;
+            case this.websocket_.typesMessage.DP:
+              this.router.navigateByUrl('rejoindre')
+              break;
+            case this.websocket_.typesMessage.RD:
+              this.websocket_.messageByUser[this.auth_.userdata.username]=msg
+              break;
+            case this.websocket_.typesMessage.START:
+
+              break;
+            case this.websocket_.typesMessage.STOP:
+
+              break;
+
+            default:
+              break;
+          }
+        }
+      },
+      error: err => console.log(err),
+      complete: ()=> console.log('complete')
+    })
     this.websocket.pushMessageWith(this.websocket.currentMessage.emeteur, message)
     this.router.navigateByUrl('accueil')
   }

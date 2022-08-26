@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { RealtimeService } from './services/realtime.service';
 import { StorageService } from './services/storage.service';
@@ -14,7 +15,8 @@ export class AppComponent {
     private realtime_: RealtimeService,
     private auth_: AuthService,
     private storage_:StorageService,
-    private websocket_: WebsocketService
+    private websocket_: WebsocketService,
+    private router: Router
     ) {
       this.storage_.create()
       this.getUserData()
@@ -28,6 +30,42 @@ export class AppComponent {
     // });
   }
 
+  connect(user){
+    this.websocket_.connectTo(user).subscribe({
+      next: msg=> {
+        console.log(msg)
+        this.websocket_.currentMessage=msg
+        if(msg.destinataire==this.auth_.userdata.username){
+          switch (msg.typeMessage) {
+            case this.websocket_.typesMessage.MQ:
+
+              break;
+            case this.websocket_.typesMessage.MR:
+
+              break;
+            case this.websocket_.typesMessage.DP:
+              this.router.navigateByUrl('rejoindre')
+              break;
+            case this.websocket_.typesMessage.RD:
+              this.websocket_.messageByUser[user]=msg
+              break;
+            case this.websocket_.typesMessage.START:
+
+              break;
+            case this.websocket_.typesMessage.STOP:
+
+              break;
+
+            default:
+              break;
+          }
+        }
+      },
+      error: err => console.log(err),
+      complete: ()=> console.log('complete')
+    })
+  }
+
   getUserData(){
     this.storage_.get('userdata').then((val: any) =>{
       console.log('receive promise');
@@ -35,7 +73,8 @@ export class AppComponent {
       this.auth_.userdata=val.user
       console.log(this.auth_.userdata);
 
-      this.websocket_.connectTo(this.auth_.userdata.username)
+      // this.websocket_.connectTo(this.auth_.userdata.username)
+      this.connect(this.auth_.userdata.username)
     }).catch(reason=>{console.warn(reason);
     })
   }

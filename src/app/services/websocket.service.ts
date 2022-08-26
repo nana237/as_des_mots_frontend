@@ -92,39 +92,40 @@ export class WebsocketService {
 
   connectTo(user){
     this.Tsubject[user]= webSocket(BASE_REAL_TIME_URL + user + "/")
-    return this.Tsubject[user].subscribe({
-      next: msg=> {
-        console.log(msg)
-        this.currentMessage=msg
-        if(msg.destinataire==this.auth_.userdata.username){
-          switch (msg.typeMessage) {
-            case this.typesMessage.MQ:
+    return this.Tsubject[user]
+    // .subscribe({
+    //   next: msg=> {
+    //     console.log(msg)
+    //     this.currentMessage=msg
+    //     if(msg.destinataire==this.auth_.userdata.username){
+    //       switch (msg.typeMessage) {
+    //         case this.typesMessage.MQ:
 
-              break;
-            case this.typesMessage.MR:
+    //           break;
+    //         case this.typesMessage.MR:
 
-              break;
-            case this.typesMessage.DP:
-              this.router.navigateByUrl('rejoindre')
-              break;
-            case this.typesMessage.RD:
-              this.messageByUser[user]=msg
-              break;
-            case this.typesMessage.START:
+    //           break;
+    //         case this.typesMessage.DP:
+    //           this.router.navigateByUrl('rejoindre')
+    //           break;
+    //         case this.typesMessage.RD:
+    //           this.messageByUser[user]=msg
+    //           break;
+    //         case this.typesMessage.START:
 
-              break;
-            case this.typesMessage.STOP:
+    //           break;
+    //         case this.typesMessage.STOP:
 
-              break;
+    //           break;
 
-            default:
-              break;
-          }
-        }
-      },
-      error: err => console.log(err),
-      complete: ()=> console.log('complete')
-    });
+    //         default:
+    //           break;
+    //       }
+    //     }
+    //   },
+    //   error: err => console.log(err),
+    //   complete: ()=> console.log('complete')
+    // });
   }
 
   disconnect(user){
