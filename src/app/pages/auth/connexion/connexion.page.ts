@@ -27,7 +27,7 @@ export class ConnexionPage implements OnInit {
     private auth_: AuthService,
     private feature_: FeatureService,
     private router: Router,
-    // private storage_: StorageService
+    private storage_: StorageService
   ) { }
 
   ngOnInit() {
@@ -76,12 +76,12 @@ export class ConnexionPage implements OnInit {
           this.loading=false;
           console.log('after');
           console.log(this.auth_.userdata);
-  
-          // this.storage_.store('userdata', data);
-          // this.storage_.get('userdata').then(val=>{
-          //   console.log('receive promise');
-          //   console.log(val);
-          // })
+
+          this.storage_.store('userdata', data);
+          this.storage_.get('userdata').then(val=>{
+            console.log('receive promise');
+            console.log(val);
+          })
         },
         error=>{
           console.warn(error)
@@ -91,9 +91,9 @@ export class ConnexionPage implements OnInit {
         )
     }else{
       console.log("invalide form \n not submited");
-      
+
     }
-   
+
   }
 
 

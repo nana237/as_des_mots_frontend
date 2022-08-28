@@ -1,0 +1,14 @@
+.myWrapper{
+    height: 100vh;
+    width: 100vw;
+    background: url(../../../../assets/images/bg-accueil.svg);
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verticalAlign{
+    display: flex;
+    flex-direction: column;
+}

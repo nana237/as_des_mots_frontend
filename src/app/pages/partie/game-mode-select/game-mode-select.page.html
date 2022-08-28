@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>gameModeSelect</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="myWrapper">
+    <div class="verticalAlign">
+      <button [routerLink]="['../leve-choice']" class="btnGold">Solo</button>
+      <button (click)="gotoOnline()" class="btnGold">On line</button>
+      <button class="btnGold">Tournois</button>
+    </div>
+  </div>
+</ion-content>

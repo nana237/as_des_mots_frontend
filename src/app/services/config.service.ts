@@ -7,6 +7,8 @@ import {baseUrl} from '../serverJs/apiUrl'
 })
 export class ConfigService {
 
+  mode
+
   constructor(
     private http: HttpClient
   ) { }
@@ -21,5 +23,9 @@ export class ConfigService {
 
   getBlocQuestionByLevel(data){
     return this.http.get(baseUrl + 'Word_package/?level=' + data);
+  }
+
+  createGame(data){
+    return this.http.post(baseUrl + 'Game/', data)
   }
 }

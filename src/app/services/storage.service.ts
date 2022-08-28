@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,12 @@ export class StorageService {
   constructor(
     private storage: Storage
     // private storage:
-  ) { }
+  ) {
+   }
+
+   async create(){
+    await this.storage.create()
+   }
 
   async store(storageKey: string, value: any){
     const encryptedValue = btoa(escape(JSON.stringify(value)));
