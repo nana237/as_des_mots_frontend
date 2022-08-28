@@ -141,7 +141,7 @@
       </div>
     </div>
 
-    <div class="waitingBloc" *ngIf="false">
+    <div class="waitingBloc" *ngIf="waitingConfig">
       <div class="waitingText">Veuillez patienter</div>
       <p class="configText">Partie en cour de configuration</p>
       <ion-spinner name="crescent"></ion-spinner>
@@ -175,21 +175,22 @@
 	    [(ngModel)]="answer"
       (input)="updateSayCommand()"
       (keydown.Meta.Enter)="speak()"
+      *ngIf="destinataire"
      >
       <!-- <input type="text" class="txtQuestion"
         [(ngModel)]="text"
         [waTextToSpeech]="text | waUtterance: options"
         [waTextToSpeechPaused]="paused"
         (waTextToSpeechEnd)="onEnd()"> -->
-      <button class="btnValidate" (click)="onValidate()">Valider</button>
+      <button *ngIf="destinataire" class="btnValidate" (click)="onValidate()">Valider</button>
     </div>
-    <div class="blockQonline" *ngIf="false">
+    <div class="blockQonline" *ngIf="startingOnline">
       <span *ngIf="false">Epelé le mot </span>
-      <span *ngIf="true">en attente...</span>
-      <span *ngIf="false">Vous êtes le prochain</span>
-      <span *ngIf="false">Vous avez perdu</span>
-      <div class="mancheWin" *ngIf="false"> Vous avez réussi cette manche <br> <span>Vous passerez à la manche suivante</span> </div>
-      <div class="gameWin" *ngIf="false"> <span>Félicitation !</span> <span class="detaitText">Vous avez gagné le tournois</span> </div>
+      <span *ngIf="attente">en attente...</span>
+      <span *ngIf="prochain">Vous êtes le prochain</span>
+      <span *ngIf="perdu">Vous avez perdu</span>
+      <div class="mancheWin" *ngIf="mancheWin"> Vous avez réussi cette manche <br> <span>Vous passerez à la manche suivante</span> </div>
+      <div class="gameWin" *ngIf="gameWin"> <span>Félicitation !</span> <span class="detaitText">Vous avez gagné le tournois</span> </div>
     </div>
     <button class="btnLeave" *ngIf="true">Abandoner</button>
     <button class="btnLeave" *ngIf="false">Home</button>

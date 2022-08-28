@@ -44,7 +44,7 @@
        <img class="chevronRight" src="assets/images/config/chevron-right.svg" alt="">
       </div>
       <button class="btnBlue">Valider</button>
-      <button class="btnOrange">Commencer</button>
+      <button class="btnOrange" (click)="onStart()">Commencer</button>
     </div>
     <div class="bloc3 bloc">
       <Span>Ajouter des questions</Span>
@@ -65,7 +65,7 @@
       <div class="BlocBQ">
         <div *ngFor="let blocQ of tabSelectedBlocQ; let index=index" class="BQuest"  (click)="onClicBlocSQ(index)"> {{blocQ.name}}</div>
       </div>
-      <button (click)="onStart()" class="btnBlue">Valider</button>
+      <button class="btnBlue">Valider</button>
     </div>
   </div>
 </div>

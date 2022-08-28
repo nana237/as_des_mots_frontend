@@ -25,7 +25,8 @@ export class GameService {
 		// 'myusername2', 'myusername3', 'myusername4'
 	];
   tour=3;
-  currentGame
+  gamedata
+  users
   startingOnline=false
 
   constructor() { }

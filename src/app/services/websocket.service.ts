@@ -20,6 +20,7 @@ export class WebsocketService {
   typesMessage={
     'MQ':'MessageQuestion',
     'MR':'MessageReponse',
+    'MT':'MessageTrouver',
     'DP':'DemandeParticipation',
     'RD':'ReponseDemande',
     'START':'start',

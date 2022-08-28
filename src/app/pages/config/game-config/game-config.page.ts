@@ -271,33 +271,47 @@ export class GameConfigPage implements OnInit {
   }
 
   getlocalID(user){
-    this.Participants.forEach(participe => {
+    for (let i = 0; i < this.Participants.length; i++) {
+      const participe = this.Participants[i];
       if (participe.username==user) {
-        return participe.id
+        // console.log(participe);
+
+        return participe.account
       }
-    });
+    }
     return null
   }
   onStart(){
-    let player
+    let player : Array<number>=[]
     this.TAcceptP.forEach(acceptor => {
-      player.push(this.getlocalID(acceptor))
+      player.push(parseInt(this.getlocalID(acceptor)))
     });
+
+    console.log(player);
+
+    // only if we are online
+    player.push(parseInt(this.auth_.userdata.pk))
+    console.log('player');
+    console.log(player.toString());
     let game={
-      "date_added": null,
-      "launcher": this.auth_.userdata.id,
-      "winner": null,
-      "player": player
+      // "date_added": null,
+      launcher: parseInt(this.auth_.userdata.pk),
+      // "winner": null,
+      player: {0:7, 1:1}
     }
 
     console.log(game);
     let gamedata=this.feature_.toFormdata(game)
+    console.log('gamedata');
+    console.log(gamedata);
+
 
     this.config_.createGame(gamedata).subscribe(data=>{
       console.log(data);
-
+      // only if we are online
+      this.TAcceptP.push(this.auth_.userdata.username)
       let StartMessage={
-        message: data[0],
+        message: {gamedata: data[0], players: this.TAcceptP},
         emeteur: this.auth_.userdata.username,
         typeMessage: this.websocket_.typesMessage.START,
         mot: '',
