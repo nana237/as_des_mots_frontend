@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RealtimeService } from 'src/app/services/realtime.service';
 import { AuthService } from '../../../services/auth.service';
 import { ConfigService } from '../../../services/config.service';
+import { FeatureService } from '../../../services/feature.service';
 import { WebsocketService } from '../../../services/websocket.service';
 
 @Component({
@@ -16,6 +17,8 @@ export class GameConfigPage implements OnInit {
   TsearchPerson
   searchPersonValue
   Participants=[]
+  TRefusP = []
+  TAcceptP = []
   TabLevel
   currentLevel
   nbTour = 1
@@ -36,7 +39,8 @@ export class GameConfigPage implements OnInit {
     private realtime_: RealtimeService,
     private websocket_: WebsocketService,
     private auth_: AuthService,
-    private router: Router
+    private router: Router,
+    private feature_: FeatureService
   ) {
     this.initialize()
   }
@@ -197,31 +201,48 @@ export class GameConfigPage implements OnInit {
       next: msg=> {
         console.log(msg)
         this.websocket_.currentMessage=msg
+        // switch (msg.destinataire) {
+        //   case this.auth_.userdata.username:
+
+        //     break;
+
+        //   default:
+        //     break;
+        // }
         if(msg.destinataire==this.auth_.userdata.username){
           switch (msg.typeMessage) {
-            case this.websocket_.typesMessage.MQ:
-
-              break;
-            case this.websocket_.typesMessage.MR:
-
-              break;
             case this.websocket_.typesMessage.DP:
               this.router.navigateByUrl('rejoindre')
               break;
             case this.websocket_.typesMessage.RD:
-              this.websocket_.messageByUser[user]=msg
+              // this.websocket_.messageByUser[user]=msg
+              console.log(this.websocket_.typesMessage.RD);
+
+              if (msg.reponse == "oui") {
+                this.TAcceptP.push(msg.emeteur)
+                // this.Participants.splice()
+              }else{
+                this.TRefusP.push(msg.emeteur)
+              }
               break;
             case this.websocket_.typesMessage.START:
-
-              break;
-            case this.websocket_.typesMessage.STOP:
 
               break;
 
             default:
               break;
           }
+
+          // switch (msg.) {
+          //   case value:
+
+          //     break;
+
+          //   default:
+          //     break;
+          // }
         }
+
       },
       error: err => console.log(err),
       complete: ()=> console.log('complete')
@@ -247,6 +268,55 @@ export class GameConfigPage implements OnInit {
         console.log(msg)
       }
     })
+  }
+
+  getlocalID(user){
+    this.Participants.forEach(participe => {
+      if (participe.username==user) {
+        return participe.id
+      }
+    });
+    return null
+  }
+  onStart(){
+    let player
+    this.TAcceptP.forEach(acceptor => {
+      player.push(this.getlocalID(acceptor))
+    });
+    let game={
+      "date_added": null,
+      "launcher": this.auth_.userdata.id,
+      "winner": null,
+      "player": player
+    }
+
+    console.log(game);
+    let gamedata=this.feature_.toFormdata(game)
+
+    this.config_.createGame(gamedata).subscribe(data=>{
+      console.log(data);
+
+      let StartMessage={
+        message: data[0],
+        emeteur: this.auth_.userdata.username,
+        typeMessage: this.websocket_.typesMessage.START,
+        mot: '',
+        destinataire: this.auth_.userdata.username,
+        prochain: '',
+        trouver: '',
+        initiateur: this.auth_.userdata.username,
+        reponse: '',
+      }
+      this.TAcceptP.forEach(acceptor => {
+        StartMessage.destinataire=acceptor
+        this.websocket_.pushMessageWith(acceptor, StartMessage)
+      });
+      StartMessage.destinataire=this.auth_.userdata.username
+      this.websocket_.pushMessageWith(this.auth_.userdata.username, StartMessage)
+
+
+    })
+
   }
 
 }

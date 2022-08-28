@@ -17,6 +17,16 @@
       </div>
       <button (click)="onInviter()" class="btnBlue">Inviter</button>
       <button (click)="sendMsgTo2()" class="btnBlue">sendMsgTo2</button>
+
+      <div class="bloc1-title">refuse</div>
+      <div *ngFor="let refusor of TRefusP; let index = index;" class="participant">
+        {{refusor}}
+      </div>
+      <div class="bloc1-title">Accept</div>
+      <div *ngFor="let acceptor of TAcceptP; let index = index;" class="participant">
+        {{acceptor}}
+      </div>
+
       <button class="btnBlue">Valider</button>
 
       <div class="text-bottom">les modifications annulerons toutes les configuration suivantes</div>
@@ -55,7 +65,7 @@
       <div class="BlocBQ">
         <div *ngFor="let blocQ of tabSelectedBlocQ; let index=index" class="BQuest"  (click)="onClicBlocSQ(index)"> {{blocQ.name}}</div>
       </div>
-      <button class="btnBlue">Valider</button>
+      <button (click)="onStart()" class="btnBlue">Valider</button>
     </div>
   </div>
 </div>

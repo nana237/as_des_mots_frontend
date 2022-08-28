@@ -24,7 +24,7 @@ export class RejoindrePage implements OnInit {
     let message={
       message: "oui",
       emeteur: this.auth_.userdata.username,
-      typeMessage: 'reponse demande',
+      typeMessage: this.websocket_.typesMessage.RD,
       mot: '',
       destinataire: this.websocket.currentMessage.emeteur,
       prochain: '',
@@ -32,47 +32,48 @@ export class RejoindrePage implements OnInit {
       initiateur: this.websocket.currentMessage.initiateur,
       reponse: 'oui',
     }
-    this.websocket.connectTo(this.websocket.currentMessage.emeteur).subscribe({
-      next: msg=> {
-        console.log(msg)
-        this.websocket_.currentMessage=msg
-        if(msg.destinataire==this.auth_.userdata.username){
-          switch (msg.typeMessage) {
-            case this.websocket_.typesMessage.MQ:
+    // this.websocket.connectTo(this.websocket.currentMessage.emeteur).subscribe({
+    //   next: msg=> {
+    //     console.log(msg)
+    //     this.websocket_.currentMessage=msg
+    //     if(msg.destinataire==this.auth_.userdata.username){
+    //       switch (msg.typeMessage) {
+    //         case this.websocket_.typesMessage.MQ:
 
-              break;
-            case this.websocket_.typesMessage.MR:
+    //           break;
+    //         case this.websocket_.typesMessage.MR:
 
-              break;
-            case this.websocket_.typesMessage.DP:
-              this.router.navigateByUrl('rejoindre')
-              break;
-            case this.websocket_.typesMessage.RD:
-              this.websocket_.messageByUser[this.auth_.userdata.username]=msg
-              break;
-            case this.websocket_.typesMessage.START:
+    //           break;
+    //         case this.websocket_.typesMessage.DP:
+    //           this.router.navigateByUrl('rejoindre')
+    //           break;
+    //         case this.websocket_.typesMessage.RD:
+    //           this.websocket_.messageByUser[this.auth_.userdata.username]=msg
+    //           break;
+    //         case this.websocket_.typesMessage.START:
 
-              break;
-            case this.websocket_.typesMessage.STOP:
+    //           break;
+    //         case this.websocket_.typesMessage.STOP:
 
-              break;
+    //           break;
 
-            default:
-              break;
-          }
-        }
-      },
-      error: err => console.log(err),
-      complete: ()=> console.log('complete')
-    })
-    this.websocket.pushMessageWith(this.websocket.currentMessage.emeteur, message)
+    //         default:
+    //           break;
+    //       }
+    //     }
+    //   },
+    //   error: err => console.log(err),
+    //   complete: ()=> console.log('complete')
+    // })
+    this.websocket.pushMessageWith(this.auth_.userdata.username, message)
+    // this.router.navigateByUrl('rejoindre')
   }
 
   onDecliner(){
     let message={
       message: "non",
       emeteur: this.auth_.userdata.username,
-      typeMessage: 'reponse demande',
+      typeMessage: this.websocket_.typesMessage.RD,
       mot: '',
       destinataire: this.websocket.currentMessage.emeteur,
       prochain: '',
@@ -80,40 +81,40 @@ export class RejoindrePage implements OnInit {
       initiateur: this.websocket.currentMessage.initiateur,
       reponse: 'non',
     }
-    this.websocket.connectTo(this.websocket.currentMessage.emeteur).subscribe({
-      next: msg=> {
-        console.log(msg)
-        this.websocket_.currentMessage=msg
-        if(msg.destinataire==this.auth_.userdata.username){
-          switch (msg.typeMessage) {
-            case this.websocket_.typesMessage.MQ:
+    // this.websocket.connectTo(this.websocket.currentMessage.emeteur).subscribe({
+    //   next: msg=> {
+    //     console.log(msg)
+    //     this.websocket_.currentMessage=msg
+    //     if(msg.destinataire==this.auth_.userdata.username){
+    //       switch (msg.typeMessage) {
+    //         case this.websocket_.typesMessage.MQ:
 
-              break;
-            case this.websocket_.typesMessage.MR:
+    //           break;
+    //         case this.websocket_.typesMessage.MR:
 
-              break;
-            case this.websocket_.typesMessage.DP:
-              this.router.navigateByUrl('rejoindre')
-              break;
-            case this.websocket_.typesMessage.RD:
-              this.websocket_.messageByUser[this.auth_.userdata.username]=msg
-              break;
-            case this.websocket_.typesMessage.START:
+    //           break;
+    //         case this.websocket_.typesMessage.DP:
+    //           this.router.navigateByUrl('rejoindre')
+    //           break;
+    //         case this.websocket_.typesMessage.RD:
+    //           this.websocket_.messageByUser[this.auth_.userdata.username]=msg
+    //           break;
+    //         case this.websocket_.typesMessage.START:
 
-              break;
-            case this.websocket_.typesMessage.STOP:
+    //           break;
+    //         case this.websocket_.typesMessage.STOP:
 
-              break;
+    //           break;
 
-            default:
-              break;
-          }
-        }
-      },
-      error: err => console.log(err),
-      complete: ()=> console.log('complete')
-    })
-    this.websocket.pushMessageWith(this.websocket.currentMessage.emeteur, message)
+    //         default:
+    //           break;
+    //       }
+    //     }
+    //   },
+    //   error: err => console.log(err),
+    //   complete: ()=> console.log('complete')
+    // })
+    this.websocket.pushMessageWith(this.auth_.userdata.username, message)
     this.router.navigateByUrl('accueil')
   }
 

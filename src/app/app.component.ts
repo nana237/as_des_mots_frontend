@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { GameService } from './services/game.service';
 import { RealtimeService } from './services/realtime.service';
 import { StorageService } from './services/storage.service';
 import { WebsocketService } from './services/websocket.service';
@@ -16,7 +17,8 @@ export class AppComponent {
     private auth_: AuthService,
     private storage_:StorageService,
     private websocket_: WebsocketService,
-    private router: Router
+    private router: Router,
+    private game_: GameService
     ) {
       this.storage_.create()
       this.getUserData()
@@ -50,7 +52,9 @@ export class AppComponent {
               this.websocket_.messageByUser[user]=msg
               break;
             case this.websocket_.typesMessage.START:
-
+              this.game_.currentGame=msg.message
+              this.game_.startingOnline=true
+              this.router.navigateByUrl('game')
               break;
             case this.websocket_.typesMessage.STOP:
 

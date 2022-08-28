@@ -24,4 +24,8 @@ export class ConfigService {
   getBlocQuestionByLevel(data){
     return this.http.get(baseUrl + 'Word_package/?level=' + data);
   }
+
+  createGame(data){
+    return this.http.post(baseUrl + 'Game/', data)
+  }
 }
