@@ -10,6 +10,8 @@ import { WebsocketService } from '../../../services/websocket.service';
 })
 export class RejoindrePage implements OnInit {
 
+  waiting=false
+
   constructor(
     private websocket: WebsocketService,
     private auth_: AuthService,
@@ -66,6 +68,7 @@ export class RejoindrePage implements OnInit {
     //   complete: ()=> console.log('complete')
     // })
     this.websocket.pushMessageWith(this.auth_.userdata.username, message)
+    this.waiting=true
     // this.router.navigateByUrl('rejoindre')
   }
 

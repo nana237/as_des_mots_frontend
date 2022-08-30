@@ -130,8 +130,10 @@
 
       <div class="blocIncorrect" *ngIf="!found">
         <span class="textIncorrect">Incorrect</span>
-        <span class="correctText">{{text}}</span>
-        <span class="btnOk" (click)="execute()" >OK</span>
+        <span *ngIf="!startingOnline" class="correctText">{{text}}</span>
+        <span *ngIf="startingOnline" class="correctText">{{textOnline}}</span>
+        <span *ngIf="!startingOnline" class="btnOk" (click)="execute()" >OK</span>
+        <span *ngIf="startingOnline"  class="btnOk" (click)="hideModal()" >OK</span>
       </div>
       <div class="blocCorrect" *ngIf="found">
         Correct
@@ -175,14 +177,14 @@
 	    [(ngModel)]="answer"
       (input)="updateSayCommand()"
       (keydown.Meta.Enter)="speak()"
-      *ngIf="destinataire"
+      *ngIf="destinataire && !attente"
      >
       <!-- <input type="text" class="txtQuestion"
         [(ngModel)]="text"
         [waTextToSpeech]="text | waUtterance: options"
         [waTextToSpeechPaused]="paused"
         (waTextToSpeechEnd)="onEnd()"> -->
-      <button *ngIf="destinataire" class="btnValidate" (click)="onValidate()">Valider</button>
+      <button *ngIf="destinataire && !attente" class="btnValidate" (click)="onValidate()">Valider</button>
     </div>
     <div class="blockQonline" *ngIf="startingOnline">
       <span *ngIf="false">Epelé le mot </span>

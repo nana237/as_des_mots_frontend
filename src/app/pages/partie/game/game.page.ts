@@ -28,6 +28,7 @@ export class GamePage implements OnInit {
 	public selectedRate: number;
 	public selectedVoice: SpeechSynthesisVoice | null;
 	public text: string;
+	public textOnline: string;
 	public TabWordTP = [];
 	public answer: string;
 	public voices: SpeechSynthesisVoice[];
@@ -63,9 +64,10 @@ export class GamePage implements OnInit {
   waitingConfig= false
 	currentplayer: string;
 	nFalse=10000;
+	nFalseOnline=5000
 	totalTour = 2;
   message={
-      message: '',
+      message: <any>'',
       emeteur: 'this.auth_.userdata.username',
       typeMessage: 'this.websocket_.typesMessage.DP',
       mot: '',// le mot à prononcer
@@ -124,19 +126,43 @@ export class GamePage implements OnInit {
 		this.recommendedVoices[ "Victoria" ] = true;
 		this.recommendedVoices[ "Yuri" ] = true;
 
-		this.initialize();
+		
   }
 
   public initialize(){
     if(this.game_.startingOnline){
       this.startingOnline=true
-      this.initializeTabCandidate()
+	  if (this.isLauncher()) {		
+		this.initializeTabCandidate()
+		this.initializePlayer();
+		this.initializeTour();
+		this.initializeWord();
+	  }
+	  setTimeout(() => {
+		
+	  }, 3000);
       this.connectToGame()
-    }
-	  this.initializePlayer();
-	  this.initializeTour();
-	  this.initializeWord();
-    this.sendQuestion();
+	  if (this.isLauncher()) {
+		this.sendQuestion();
+		
+	  }
+    }else{
+		this.attente = false
+		this.initializePlayer();
+		this.initializeTour();
+		this.initializeWord();
+	}
+	
+
+  }
+
+  isLauncher(){
+	console.log('log islauncher', this.game_.initiateur, this.auth_.userdata.username);
+
+	if (this.game_.initiateur==this.auth_.userdata.username) {
+		return true
+	}
+	return false
   }
 
   public demoSelectedVoice() : void {
@@ -180,9 +206,13 @@ export class GamePage implements OnInit {
 
 		}
 
-		setTimeout(() => {
-			this.speak();
-		}, 3000);
+		this.initialize();
+
+		if (!this.startingOnline) {	
+			setTimeout(() => {
+				this.speak();
+			}, 3000);
+		}
   }
 
   onEnd(){
@@ -320,13 +350,23 @@ export class GamePage implements OnInit {
 
 		if(this.finish){
 			console.log('finish');
-			this.game_.tabCandidate = this.tabCandidate
-			this.game_.tour = this.tour
-			this.router.navigateByUrl('score')
+			if (this.startingOnline) {
+				this.message.typeMessage=this.websocket_.typesMessage.STOP
+				this.message.message={
+					tabCandidate: this.tabCandidate,
+					tour: this.tour}
+				this.websocket_.pushMessageWith('game' + this.game_.gamedata.id, this.message)
+			}else{
+				this.game_.tabCandidate = this.tabCandidate
+				this.game_.tour = this.tour
+				this.router.navigateByUrl('score')
+			}
 		}
 	}
 
   sendQuestion(){
+	console.log('send question');
+	
     this.message={
       message: 'Question',
       emeteur: this.auth_.userdata.username,
@@ -338,6 +378,8 @@ export class GamePage implements OnInit {
       initiateur: this.auth_.userdata.username,
       reponse: '',
     }
+
+	this.websocket_.pushMessageWith('game' + this.game_.gamedata.id, this.message)
   }
 
   sendRespond(){
@@ -365,14 +407,15 @@ export class GamePage implements OnInit {
     this.websocket_.pushMessageWith('game' + this.game_.gamedata.id, this.message)
   }
 
-  calculateResponse(response){
+  calculateResponse(motPrononcer, response){
     // this.viewModal=true;
-		this.found = this.text.toLocaleLowerCase().trim()==this.answer.toLocaleLowerCase().trim()
+		this.found = motPrononcer.toLocaleLowerCase().trim()==response.toLocaleLowerCase().trim()
 		this.tabCandidate[this.getLocalIdCandidate(this.message.emeteur)].score.push(this.found ? 1 : 0)
     this.message.trouver = this.found
     this.message.emeteur=this.auth_.userdata.username
     this.message.destinataire="All_user__"
-    this.websocket_.pushMessageWith(this.game_.gamedata.id, this.message)
+	this.message.typeMessage = this.websocket_.typesMessage.MT
+    this.websocket_.pushMessageWith('game' + this.game_.gamedata.id, this.message)
 		console.log(this.tabCandidate)
 
     this.setnextWord()
@@ -390,21 +433,34 @@ export class GamePage implements OnInit {
   }
 
   connectToGame(){
+	console.log('connect to game : ' + 'game' + this.game_.gamedata.id);
     this.websocket_.connectTo('game' + this.game_.gamedata.id).subscribe({
       next: msg=> {
         console.log(msg)
         this.message=msg
         this.websocket_.currentMessage=msg
         switch (msg.typeMessage) {
-          case this.websocket_.typesMessage.MQ:
-            this.setcurrentwordOnline(msg.mot)
-            this.destinataire=false
-            this.attente=true
-            this.prochain=false
-            break;
-          case this.websocket_.typesMessage.MR:
-
-            break;
+			case this.websocket_.typesMessage.MQ:
+				console.log('faut attendre, ton tour arrive');
+				this.setcurrentwordOnline(msg.mot)
+				this.destinataire=false
+				this.attente=true
+				this.prochain=false
+				break;
+			case this.websocket_.typesMessage.MT:
+					this.showModalOnline()
+					this.found=this.message.trouver
+					this.textOnline = this.message.mot
+					setTimeout(() => {
+						this.hideModal()
+					}, this.found?2000:this.nFalseOnline);
+				break;
+				
+			case this.websocket_.typesMessage.STOP:
+				this.game_.tabCandidate = this.message.message.tabCandidate
+				this.game_.tour = this.message.message.tour
+				this.router.navigateByUrl('score')
+				break
 
           default:
             break;
@@ -413,7 +469,8 @@ export class GamePage implements OnInit {
         if(msg.prochain==this.auth_.userdata.username){
           switch (msg.typeMessage) {
             case this.websocket_.typesMessage.MQ:
-              this.destinataire=false
+				console.log('c\'est toi le prochain');
+				this.destinataire=false
               this.attente=false
               this.prochain=true
               break;
@@ -429,6 +486,8 @@ export class GamePage implements OnInit {
         if(msg.destinataire==this.auth_.userdata.username){
           switch (msg.typeMessage) {
             case this.websocket_.typesMessage.MQ:
+				console.log('a vous de jouer');
+				
               this.destinataire=true
               this.attente=false
               this.prochain=false
@@ -445,13 +504,10 @@ export class GamePage implements OnInit {
           }
         }
 
-        if(msg.destinataire==msg.initiateur){
+        if(msg.destinataire==msg.initiateur && this.isLauncher()){
           switch (msg.typeMessage) {
-            case this.websocket_.typesMessage.MQ:
-
-              break;
             case this.websocket_.typesMessage.MR:
-              this.calculateResponse(msg.reponse)
+              this.calculateResponse(msg.mot, msg.reponse)
               this.sendQuestion()
               break;
             case this.websocket_.typesMessage.STOP:
@@ -469,22 +525,32 @@ export class GamePage implements OnInit {
   }
 
   private initializeTabCandidate(){
-    this.tabCandidate=[]
+	console.log('initializeTabCandidate');
+	this.tabCandidate=[]
     this.game_.users.forEach(user => {
       this.tabCandidate.push({
         name: user,
         score: []
       })
     });
+	console.log(this.tabCandidate);
   }
+  
 	private initializePlayer(){
+		console.log('initialize player');
 		this.idPlayer=0;
 	}
 	private initializeTour(){
+		console.log('initialize tour');
 		this.tour=1;
 	}
 	private initializeWord(){
+		console.log('initialize word');
 		this.number=0;
+	}
+
+	private showModalOnline(){
+		this.viewModal=true
 	}
 
 	private showModal(){

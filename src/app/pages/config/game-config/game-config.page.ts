@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameService } from 'src/app/services/game.service';
 import { RealtimeService } from 'src/app/services/realtime.service';
 import { AuthService } from '../../../services/auth.service';
 import { ConfigService } from '../../../services/config.service';
@@ -40,7 +41,8 @@ export class GameConfigPage implements OnInit {
     private websocket_: WebsocketService,
     private auth_: AuthService,
     private router: Router,
-    private feature_: FeatureService
+    private feature_: FeatureService,
+    private game_: GameService
   ) {
     this.initialize()
   }
@@ -168,8 +170,8 @@ export class GameConfigPage implements OnInit {
     // console.log(this.Participants[0].username)
     // this.sendMsgTo(this.Participants[0].username)
 
-    this.websocket_.listengMessage()
-    this.websocket_.pushMessage()
+    // this.websocket_.listengMessage()
+    // this.websocket_.pushMessage()
 
     for (let i = 0; i < this.Participants.length; i++) {
       const participant = this.Participants[i];
@@ -297,21 +299,24 @@ export class GameConfigPage implements OnInit {
       // "date_added": null,
       launcher: parseInt(this.auth_.userdata.pk),
       // "winner": null,
-      player: {0:7, 1:1}
+      player: player
     }
 
     console.log(game);
-    let gamedata=this.feature_.toFormdata(game)
+    let gamedata=game
+    // let gamedata=JSON.stringify(game)
+    // let gamedata=this.feature_.toFormdata(game)
     console.log('gamedata');
     console.log(gamedata);
 
 
     this.config_.createGame(gamedata).subscribe(data=>{
       console.log(data);
+
       // only if we are online
       this.TAcceptP.push(this.auth_.userdata.username)
       let StartMessage={
-        message: {gamedata: data[0], players: this.TAcceptP},
+        message: {gamedata: data, players: this.TAcceptP},
         emeteur: this.auth_.userdata.username,
         typeMessage: this.websocket_.typesMessage.START,
         mot: '',
@@ -325,8 +330,21 @@ export class GameConfigPage implements OnInit {
         StartMessage.destinataire=acceptor
         this.websocket_.pushMessageWith(acceptor, StartMessage)
       });
-      StartMessage.destinataire=this.auth_.userdata.username
-      this.websocket_.pushMessageWith(this.auth_.userdata.username, StartMessage)
+
+      this.Participants.forEach(participe => {
+        this.websocket_.disconnect(participe.username)
+      });
+
+      
+      // StartMessage.destinataire=this.auth_.userdata.username
+      // this.game_.gamedata=StartMessage.message.gamedata
+      // this.game_.users = StartMessage.message.players
+      // this.game_.startingOnline=true
+      // this.game_.initiateur = StartMessage.initiateur
+      // this.router.navigateByUrl('game')
+
+      // StartMessage.destinataire=this.auth_.userdata.username
+      // this.websocket_.pushMessageWith(this.auth_.userdata.username, StartMessage)
 
 
     })

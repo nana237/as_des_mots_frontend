@@ -55,6 +55,7 @@ export class AppComponent {
               this.game_.gamedata=msg.message.gamedata
               this.game_.users = msg.message.players
               this.game_.startingOnline=true
+              this.game_.initiateur = msg.initiateur
               this.router.navigateByUrl('game')
               break;
             case this.websocket_.typesMessage.STOP:

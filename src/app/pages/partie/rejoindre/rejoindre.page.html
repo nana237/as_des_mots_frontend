@@ -1,12 +1,16 @@
 <ion-content>
   <div class="myWrapper">
 
-    <div class="blockQuestion">
+    <div *ngIf="!waiting" class="blockQuestion">
       <p class="title-question"> Proffesseur1 souhaite vous ajouter <br> à une partie. </p>
       <span class="askJoin">Rejoindre ?</span>
       <button class="btnJoin" (click)="onRejoindre()">Rejoindre</button>
     </div>
-    <button class="btnDecline" (click)="onDecliner()">Décliner</button>
+    <div *ngIf="waiting" class="blockQuestion">
+      <p class="title-question"> Partie en cour de configuration. <br> Veuillez patienter </p>
+      <div class="spinnerJoin"><ion-spinner name="crescent"></ion-spinner></div>
+    </div>
+    <button *ngIf="!waiting" class="btnDecline" (click)="onDecliner()">Décliner</button>
 
   </div>
 

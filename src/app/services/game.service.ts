@@ -28,6 +28,7 @@ export class GameService {
   gamedata
   users
   startingOnline=false
+  initiateur
 
   constructor() { }
 }
