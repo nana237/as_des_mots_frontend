@@ -6,8 +6,10 @@ import { webSocket } from 'rxjs/webSocket'
 import { AuthService } from './auth.service';
 
 
-const BASE_REAL_TIME_URL = "ws://127.0.0.1:8000/ws/chat/"
-const subject = webSocket("ws://127.0.0.1:8000/ws/chat/lobby/")
+const BASE_REAL_TIME_URL = "wss://as-des-mots.herokuapp.com/ws/chat/"
+// const BASE_REAL_TIME_URL = "ws://127.0.0.1:8000/ws/chat/"
+const subject = webSocket("wss://as-des-mots.herokuapp.com/ws/chat/lobby/")
+// const subject = webSocket("ws://127.0.0.1:8000/ws/chat/lobby/")
 
 
 @Injectable({

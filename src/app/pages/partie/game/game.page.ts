@@ -65,7 +65,7 @@ export class GamePage implements OnInit {
 	currentplayer: string;
 	nFalse=10000;
 	nFalseOnline=5000
-	totalTour = 2;
+	totalTour = 3;
   message={
       message: <any>'',
       emeteur: 'this.auth_.userdata.username',
@@ -78,6 +78,7 @@ export class GamePage implements OnInit {
       reponse: 'this.answer',
     }
   startingOnline=false
+  waitingMyTime=false
   destinataire = true;
   prochain=false;
   attente=true
@@ -102,7 +103,7 @@ export class GamePage implements OnInit {
 		// this.text = "Bonjour \n Banane \n Salut \n As des Mots \n Prononciation \n Apprentissage \n étudier \n Décourvire \n s'amuser \n évoluer. ";
 		this.text = "monsieur";
 		this.sayCommand = "";
-		this.TabWordTP = ['Bonjour', 'Salut', 'rhinomicine', 'médicament']
+		this.TabWordTP = ['Bonjour', 'Salut', 'rhinomicine', 'médicament', 'voiture', 'maison', 'bateau', 'zero', 'lire', 'marcher', 'marchander', 'saluer', 'gentil', 'agrégation', 'mariage', 'nourriture', 'fruit']
 
 		this.text = this.TabWordTP[0] //initializeWord
 
@@ -138,12 +139,13 @@ export class GamePage implements OnInit {
 		this.initializeTour();
 		this.initializeWord();
 	  }
-	  setTimeout(() => {
-		
-	  }, 3000);
+
       this.connectToGame()
 	  if (this.isLauncher()) {
-		this.sendQuestion();
+		setTimeout(() => {
+			this.sendQuestion();
+		}, 5000);
+		
 		
 	  }
     }else{
@@ -290,7 +292,8 @@ export class GamePage implements OnInit {
 
 	private onValidate(){
 
-    if(this.startingOnline){
+    if(this.startingOnline && !this.waitingMyTime){
+		this.waitingMyTime=true
       this.sendRespond()
     }else{
       this.showModal();
@@ -405,6 +408,7 @@ export class GamePage implements OnInit {
     this.message.emeteur= this.auth_.userdata.username
     this.message.typeMessage = this.websocket_.typesMessage.MR
     this.websocket_.pushMessageWith('game' + this.game_.gamedata.id, this.message)
+	this.answer=''
   }
 
   calculateResponse(motPrononcer, response){
@@ -488,7 +492,8 @@ export class GamePage implements OnInit {
             case this.websocket_.typesMessage.MQ:
 				console.log('a vous de jouer');
 				
-              this.destinataire=true
+			this.waitingMyTime= false
+			this.destinataire=true
               this.attente=false
               this.prochain=false
               break;

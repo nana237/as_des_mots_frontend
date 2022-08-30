@@ -16,7 +16,7 @@
         {{participant.username}}
       </div>
       <button (click)="onInviter()" class="btnBlue">Inviter</button>
-      <button (click)="sendMsgTo2()" class="btnBlue">sendMsgTo2</button>
+      <!-- <button (click)="sendMsgTo2()" class="btnBlue">sendMsgTo2</button> -->
 
       <div class="bloc1-title">refuse</div>
       <div *ngFor="let refusor of TRefusP; let index = index;" class="participant">
@@ -38,7 +38,8 @@
       <div class="blocThree">
        <img class="chevronLeft" src="assets/images/config/chevron-left.svg" alt="">
        <div class="threeContain">
-        <img class="three" *ngIf="!onlineMode" src="assets/images/config/eg-three.svg" alt="">
+        <img class="three" *ngIf="false" src="assets/images/config/eg-three.svg" alt="">
+        <!-- <img class="three" *ngIf="!onlineMode" src="assets/images/config/eg-three.svg" alt=""> -->
         <div class="nbManche"> {{nbTour}} Manche<span *ngIf="showS">s</span></div>
        </div>
        <img class="chevronRight" src="assets/images/config/chevron-right.svg" alt="">
